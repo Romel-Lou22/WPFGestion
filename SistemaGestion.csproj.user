@@ -21,7 +21,34 @@
     <Page Update="Styles\UIColors.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="View\ClientesView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\FacturasView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\FinanzasView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\HomeView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\Login.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\ProductosView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\ProvedoresView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\ReportesView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\StockView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\VentasView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

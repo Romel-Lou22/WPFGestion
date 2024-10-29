@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SistemaGestion.View"
+        xmlns:viewmodel="clr-namespace:SistemaGestion.VistaModelo"
         mc:Ignorable="d"
         Title="Login" Height="550" Width="800"
         WindowStyle="None"
@@ -12,6 +13,14 @@
         Background="Transparent"
         AllowsTransparency="True"
         MouseDown="Window_MouseDown">
+    
+    <!--CREACIÓN DE MODELOS-->
+
+    <Window.DataContext>
+        <viewmodel:LoginViewModel/>
+    </Window.DataContext>
+    
+    
     <Border CornerRadius="12">
         <Border.Background>
             <ImageBrush ImageSource="C:\Users\ZenBook\Desktop\Cursoc#\SistemaGestion\Images\puntoV.jpg" Stretch="None"/>

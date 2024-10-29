@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET5_0;NETCOREAPP
 C:\Users\ZenBook\Desktop\valido\WPFGestion\App.xaml
-5382434968
+14-748743589
 
-18-852493711
+27-905786270
 204-991532639
-CustomControls\BindablePasswordBox.xaml;MainWindow.xaml;Styles\ButtonStyles.xaml;Styles\UIColors.xaml;View\Login.xaml;
+CustomControls\BindablePasswordBox.xaml;MainWindow.xaml;Styles\ButtonStyles.xaml;Styles\UIColors.xaml;View\ClientesView.xaml;View\FacturasView.xaml;View\FinanzasView.xaml;View\HomeView.xaml;View\Login.xaml;View\ProductosView.xaml;View\ProvedoresView.xaml;View\ReportesView.xaml;View\StockView.xaml;View\VentasView.xaml;
 
 False
 
