@@ -48,61 +48,15 @@ namespace SistemaGestion.View
 
         }
 
-        private void btnLogin_Click(object sender, RoutedEventArgs e)
-        {
-            if(string.IsNullOrEmpty(txtUser.Text.Trim()) || string.IsNullOrEmpty(txtPassword.Password.Trim()))
-            {
-                MessageBox.Show("Ingrese todo lo campos Usuario y Contraseña", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-
-            }
-            else
-            {
-               
-                if (ValidarCredenciales(txtUser.Text.Trim(), txtPassword.Password.Trim()))
-                {
-                    MessageBox.Show("Inicio sección correcto", "Exito", MessageBoxButton.OK, MessageBoxImage.Information);
-                    new MainWindow().Show();
-                    this.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Usuario o contraseña incorrecta", "Error", MessageBoxButton.OK, MessageBoxImage.Hand);
-                }
-            }
+      
 
             
            
 
 
-        }
+        
 
-        private bool ValidarCredenciales(string usuario , string password )
-        {
-            
-
-            string query = "SELECT COUNT(*) FROM Users WHERE Username=@usuario AND PasswordHash=@password ";
-
-            using(SqlConnection conn = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    conn.Open();
-                    using(SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@usuario",usuario);
-                        cmd.Parameters.AddWithValue("@password",password);
-                        return (int)cmd.ExecuteScalar() > 0;
-                    }
-
-                }
-                catch(SqlException ex)
-                {
-                    MessageBox.Show($"Error SQL al consultar: {ex}", "advertencia",MessageBoxButton.OK,MessageBoxImage.Warning);
-                    return false;
-                }
-            }
-
-        }
+      
 
         
 

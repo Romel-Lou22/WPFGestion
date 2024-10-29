@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SistemaGestion.View"
         xmlns:viewmodel="clr-namespace:SistemaGestion.VistaModelo"
+        xmlns:customcontrols="clr-namespace:SistemaGestion.CustomControls"
         mc:Ignorable="d"
         Title="Login" Height="550" Width="800"
         WindowStyle="None"
@@ -127,6 +128,7 @@
                                Margin="0,35,0,0"/>
                     
                     <TextBox x:Name="txtUser"
+                             Text="{Binding Username,UpdateSourceTrigger=PropertyChanged}"
                              FontSize="13"
                              FontWeight="Medium"
                              FontFamily="Montserrat"
@@ -154,29 +156,31 @@
                                FontFamily="Montserrat"
                                Margin="0,35,0,0"/>
 
-                    <PasswordBox x:Name="txtPassword"
-                             FontSize="13"
-                             FontWeight="Medium"
-                             FontFamily="Montserrat"
-                             Foreground="White"
-                             CaretBrush="LightGray"
-                             BorderBrush="DarkGray"
-                             BorderThickness="0,0,0,1"
-                             Height="28"
-                             VerticalContentAlignment="Center"
-                             Margin="0,5,0,0"
-                             Padding="30,0,0,0">
-                        <PasswordBox.Background>
-                            <ImageBrush ImageSource="C:\Users\ZenBook\Desktop\Cursoc#\SistemaGestion\Images\candado.png"
-                                        Stretch="Uniform"
-                                        AlignmentX="Left"
-                                        AlignmentY="Center"/>
-                        </PasswordBox.Background>
-                    </PasswordBox>
+                    <customcontrols:BindablePasswordBox Password="{Binding Password,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"                         
+                                                        Height="28"                           
+                                                        Margin="0,5,0,0">
+
+                    </customcontrols:BindablePasswordBox>
+
+                    <TextBlock Text="{Binding ErrorMessage}"
+                               Foreground="#D7596D"
+                               FontSize="12"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat"
+                               Margin="0,10,0,0"
+                               TextWrapping="Wrap"/>
 
 
-                    <Button x:Name="btnLogin" BorderThickness="0" Content="Ingresar" Foreground="White" Margin="0,50,0,0"
-                            FontSize="16"  FontFamily="Montserrat" Cursor="Hand"  Grid.Column="1" Click="btnLogin_Click" >
+                    <Button x:Name="btnLogin"
+                            Command="{Binding LoginCommand}"
+                            BorderThickness="0" 
+                            Content="Ingresar" 
+                            Foreground="White" 
+                            Margin="0,50,0,0"
+                            FontSize="16"  
+                            FontFamily="Montserrat" 
+                            Cursor="Hand"  
+                            Grid.Column="1">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Background" Value="#28AEED"/>
