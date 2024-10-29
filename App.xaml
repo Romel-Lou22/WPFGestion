@@ -4,8 +4,13 @@
              xmlns:local="clr-namespace:SistemaGestion"
              StartupUri="View/Login.xaml">
     <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/UIColors.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/Styles/ButtonStyles.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
 
-        <ResourceDictionary Source="/Styles/UIColors.xaml"></ResourceDictionary>
-         
+
     </Application.Resources>
 </Application>
