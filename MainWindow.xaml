@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+        xmlns:viewModel="clr-namespace:SistemaGestion.VistaModelo"
         
-        xmlns:local="clr-namespace:SistemaGestion"
+        xmlns:local="clr-namespace:SistemaGestion.View"
         
         mc:Ignorable="d"
         Title="MainWindow" Height="700" Width="1300"
@@ -13,7 +14,47 @@
         WindowStyle="None"
         Background="Transparent"
         AllowsTransparency="True">
+    
+    <!--Conexiones-->
+    <Window.DataContext>
+        <viewModel:MainViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
+            <local:HomeView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:VentasViewModel}">
+            <local:VentasView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:ProvedoresViewModel}">
+            <local:ProvedoresView/>
+        </DataTemplate>
 
+        <DataTemplate DataType="{x:Type viewModel:ProductosViewModel}">
+            <local:ProductosView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:ClientesViewModel}">
+            <local:ClientesView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:StockViewModel}">
+            <local:StockView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:FacturasViewModel}">
+            <local:FacturasView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:ReportesViewModel}">
+            <local:ReportesView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:FinanzasViewModel}">
+            <local:FinanzasView/>
+        </DataTemplate>
+
+    </Window.Resources>
 
 
 
