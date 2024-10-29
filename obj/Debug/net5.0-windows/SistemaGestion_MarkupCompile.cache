@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\ZenBook\Desktop\Cursoc#\SistemaGestion\obj\Debug\net5.0-windows\
+C:\Users\ZenBook\Desktop\valido\WPFGestion\obj\Debug\net5.0-windows\
 SistemaGestion
 none
 false
 TRACE;DEBUG;NET;NET5_0;NETCOREAPP
-C:\Users\ZenBook\Desktop\Cursoc#\SistemaGestion\App.xaml
-3-784502644
+C:\Users\ZenBook\Desktop\valido\WPFGestion\App.xaml
+4200725723
 
-41867025981
-1941776239551
-MainWindow.xaml;Styles\UIColors.xaml;View\Login.xaml;
+18-852493711
+204-991532639
+CustomControls\BindablePasswordBox.xaml;MainWindow.xaml;Styles\UIColors.xaml;View\Login.xaml;
 
 False
 

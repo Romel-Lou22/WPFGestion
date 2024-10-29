@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "A/EimRPbD9NN7OJxrGmJKobOdgQEPRZXrfohh5kZn8GbiI2OruMq7CpHi/uDd0bJIGe4I8XzV8BsoWVWP1u5FA==",
+  "dgSpecHash": "52sObVHRutvMGdu/mfoiA1UOiET9KmRU4CRq+JxmkmFKJ1fenEJIMLY9j3j0eMYsiJlbbnGCbjZ9Xz8kuWmKCw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ZenBook\\Desktop\\Cursoc#\\SistemaGestion\\SistemaGestion.csproj",
+  "projectFilePath": "C:\\Users\\ZenBook\\Desktop\\valido\\WPFGestion\\SistemaGestion.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\ZenBook\\.nuget\\packages\\fontawesome.sharp\\6.6.0\\fontawesome.sharp.6.6.0.nupkg.sha512",
     "C:\\Users\\ZenBook\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\ZenBook\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\ZenBook\\.nuget\\packages\\runtime.native.system.data.sqlclient.sni\\4.7.0\\runtime.native.system.data.sqlclient.sni.4.7.0.nupkg.sha512",
