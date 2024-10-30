@@ -107,7 +107,8 @@
                     <!-- Botones de radio que funcionan como elementos del menú lateral -->
                     <!-- Cada RadioButton representa una opción del menú -->
                     <StackPanel>
-                        <TextBlock  Text="PRINCIPAL" Margin="45,0,0,0" Foreground="{StaticResource titleColor2}" FontSize="12" FontWeight="Light" FontFamily="Montserrat"  FontStyle="Oblique"/>
+                        <TextBlock  Text="PRINCIPAL" Margin="45,0,0,0" Foreground="{StaticResource titleColor2}" 
+                                    FontSize="12" FontWeight="Light" FontFamily="Montserrat"  FontStyle="Oblique"/>
                     </StackPanel>
                     <RadioButton Style="{StaticResource menuButton}" 
                                  Tag="{StaticResource color1}" 

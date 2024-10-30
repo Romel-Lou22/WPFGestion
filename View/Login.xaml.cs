@@ -22,7 +22,7 @@ namespace SistemaGestion.View
     /// </summary>
     public partial class Login : Window
     {
-        private string connectionString = ConfigurationManager.ConnectionStrings["miConexion"].ConnectionString;
+      
         public Login()
         {
             InitializeComponent();
