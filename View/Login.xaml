@@ -32,7 +32,7 @@
     <!-- Fondo general con borde redondeado y gradiente -->
     <Border CornerRadius="12">
         <Border.Background>
-            <ImageBrush ImageSource="C:\Users\ZenBook\Desktop\Cursoc#\SistemaGestion\Images\puntoV.jpg" Stretch="None"/>
+            <ImageBrush ImageSource="/Images/permiso.png" Stretch="None"/>
         </Border.Background>
 
         <!-- Borde con gradiente decorativo -->
@@ -120,7 +120,7 @@
 
                 <!-- Formulario de Inicio de Sesión -->
                 <StackPanel Width="250" Grid.Row="1" Orientation="Vertical" Margin="0,35,0,0">
-                    <Image Source="C:\Users\ZenBook\Desktop\Cursoc#\SistemaGestion\Images\permiso.png" Width="100" Height="100"/>
+                    <Image Source="/Images/permiso.png" Width="100" Height="100"/>
                     <TextBlock Text="Punto Venta" Foreground="White" 
                                FontSize="25" FontWeight="Medium" 
                                FontFamily="Montserrat" HorizontalAlignment="Center"/>
@@ -133,7 +133,7 @@
                              FontFamily="Montserrat" Foreground="White" CaretBrush="LightGray" BorderBrush="DarkGray"
                              BorderThickness="0,0,0,1" Height="28" VerticalContentAlignment="Center" Margin="0,5,0,0" Padding="30,0,0,0">
                         <TextBox.Background>
-                            <ImageBrush ImageSource="C:\Users\ZenBook\Desktop\Cursoc#\SistemaGestion\Images\usuario (1).png" Stretch="None" AlignmentX="Left"/>
+                            <ImageBrush ImageSource="/Images/usuario.png" Stretch="None" AlignmentX="Left"/>
                         </TextBox.Background>
                     </TextBox>
 

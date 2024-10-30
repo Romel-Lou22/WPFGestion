@@ -10,9 +10,16 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/UIColors.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="/Styles/ButtonStyles.xaml"></ResourceDictionary>
+                
+                
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 
 
+       
+
     </Application.Resources>
+
+   
+
 </Application>

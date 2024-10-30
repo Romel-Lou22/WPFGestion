@@ -18,6 +18,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Images\candado.png" />
+    <None Remove="Images\cerrar.png" />
+    <None Remove="Images\permiso.png" />
+    <None Remove="Images\tarjeta-electronica.png" />
+    <None Remove="Images\usuario.png" />
     <None Remove="tarjeta-electronica.png" />
   </ItemGroup>
 
@@ -27,6 +32,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\candado.png" />
+    <Resource Include="Images\cerrar.png" />
+    <Resource Include="Images\permiso.png" />
+    <Resource Include="Images\tarjeta-electronica.png" />
+    <Resource Include="Images\usuario.png" />
     <Resource Include="tarjeta-electronica.png" />
   </ItemGroup>
 
