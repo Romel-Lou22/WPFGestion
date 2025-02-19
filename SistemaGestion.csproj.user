@@ -7,6 +7,12 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="View\AgregarClienteView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\AgregarProductoView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\HAMBURGER.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

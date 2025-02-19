@@ -2,15 +2,59 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression.blend/2008" 
              xmlns:local="clr-namespace:SistemaGestion.View"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="Azure">
-        <TextBlock FontSize="20" FontWeight="Light" Text="Hola">
-            
-            
-        </TextBlock>
-            
+             d:DesignHeight="600" d:DesignWidth="900">
+
+    <Grid Background="#1B144B" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- #region Título del Dashboard -->
+        <TextBlock Text="Dashboard de Gestión"
+                   FontSize="26" FontWeight="Bold"
+                   Foreground="White" HorizontalAlignment="Center"/>
+        <!-- #endregion -->
+
+        <Grid Grid.Row="1" Margin="0,20,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- #region Sección de Resumen de Ventas -->
+            <StackPanel Grid.Column="0" Margin="10">
+                <TextBlock Text="Resumen de Ventas" FontSize="18" FontWeight="Bold" Foreground="White"/>
+                <StackPanel Orientation="Horizontal" Margin="10,5">
+                    <Border Background="#28AEED"   Margin="5">
+                        <StackPanel>
+                            <TextBlock Text="Ventas Hoy" Foreground="White"/>
+                            <TextBlock Text="$15,200" Foreground="White" FontSize="20" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Background="#DA43AE" Padding="15" CornerRadius="10" Margin="5">
+                        <StackPanel>
+                            <TextBlock Text="Ingresos Mensuales" Foreground="White"/>
+                            <TextBlock Text="$320,500" Foreground="White" FontSize="20" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </StackPanel>
+            <!-- #endregion -->
+
+            <!-- #region Sección de Alertas y Notificaciones -->
+            <StackPanel Grid.Column="1" Background="#2c3e50">
+                <TextBlock Text="Notificaciones" FontSize="16" FontWeight="Bold" Foreground="White"/>
+                <ListBox Foreground="White" Background="#2c3e50" BorderThickness="0">
+                    <ListBoxItem Content="🔔 Producto 'Laptop Dell' con stock bajo."/>
+                    <ListBoxItem Content="🔔 Nueva venta realizada por $200."/>
+                    <ListBoxItem Content="🔔 Cliente VIP realizó una compra."/>
+                </ListBox>
+            </StackPanel>
+            <!-- #endregion -->
+        </Grid>
     </Grid>
 </UserControl>

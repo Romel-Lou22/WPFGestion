@@ -1,8 +1,10 @@
 C:\Users\ZenBook\Desktop\valido\WPFGestion\obj\Debug\net5.0-windows\SistemaGestion.csproj.AssemblyReference.cache
 C:\Users\ZenBook\Desktop\valido\WPFGestion\obj\Debug\net5.0-windows\Styles\ButtonStyles.baml
 C:\Users\ZenBook\Desktop\valido\WPFGestion\obj\Debug\net5.0-windows\Styles\UIColors.baml
+C:\Users\ZenBook\Desktop\valido\WPFGestion\obj\Debug\net5.0-windows\View\AgregarProductoView.baml
 C:\Users\ZenBook\Desktop\valido\WPFGestion\obj\Debug\net5.0-windows\CustomControls\BindablePasswordBox.g.cs
 C:\Users\ZenBook\Desktop\valido\WPFGestion\obj\Debug\net5.0-windows\MainWindow.g.cs
+C:\Users\ZenBook\Desktop\valido\WPFGestion\obj\Debug\net5.0-windows\View\AgregarProductoView.g.cs
 C:\Users\ZenBook\Desktop\valido\WPFGestion\obj\Debug\net5.0-windows\View\ClientesView.g.cs
 C:\Users\ZenBook\Desktop\valido\WPFGestion\obj\Debug\net5.0-windows\View\FacturasView.g.cs
 C:\Users\ZenBook\Desktop\valido\WPFGestion\obj\Debug\net5.0-windows\View\FinanzasView.g.cs
@@ -59,3 +61,5 @@ C:\Users\ZenBook\Desktop\valido\WPFGestion\obj\Debug\net5.0-windows\refint\Siste
 C:\Users\ZenBook\Desktop\valido\WPFGestion\obj\Debug\net5.0-windows\SistemaGestion.pdb
 C:\Users\ZenBook\Desktop\valido\WPFGestion\obj\Debug\net5.0-windows\SistemaGestion.genruntimeconfig.cache
 C:\Users\ZenBook\Desktop\valido\WPFGestion\obj\Debug\net5.0-windows\ref\SistemaGestion.dll
+C:\Users\ZenBook\Desktop\valido\WPFGestion\obj\Debug\net5.0-windows\View\AgregarClienteView.baml
+C:\Users\ZenBook\Desktop\valido\WPFGestion\obj\Debug\net5.0-windows\View\AgregarClienteView.g.cs

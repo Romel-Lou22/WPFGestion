@@ -3,10 +3,6 @@
   "WorkspaceRootPath": "C:\\Users\\ZenBook\\Desktop\\valido\\WPFGestion\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FEE4234B-207A-4B65-B186-FDB961895B59}|SistemaGestion.csproj|c:\\users\\zenbook\\desktop\\valido\\wpfgestion\\view\\productosview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{FEE4234B-207A-4B65-B186-FDB961895B59}|SistemaGestion.csproj|solutionrelative:view\\productosview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{FEE4234B-207A-4B65-B186-FDB961895B59}|SistemaGestion.csproj|c:\\users\\zenbook\\desktop\\valido\\wpfgestion\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{FEE4234B-207A-4B65-B186-FDB961895B59}|SistemaGestion.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
@@ -18,29 +14,18 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Users\\ZenBook\\Desktop\\valido\\WPFGestion\\MainWindow.xaml",
               "RelativeDocumentMoniker": "MainWindow.xaml",
               "ToolTip": "C:\\Users\\ZenBook\\Desktop\\valido\\WPFGestion\\MainWindow.xaml",
               "RelativeToolTip": "MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-02-01T02:26:11.704Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ProductosView.xaml",
-              "DocumentMoniker": "C:\\Users\\ZenBook\\Desktop\\valido\\WPFGestion\\View\\ProductosView.xaml",
-              "RelativeDocumentMoniker": "View\\ProductosView.xaml",
-              "ToolTip": "C:\\Users\\ZenBook\\Desktop\\valido\\WPFGestion\\View\\ProductosView.xaml",
-              "RelativeToolTip": "View\\ProductosView.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-02-01T01:06:28.069Z",
+              "WhenOpened": "2025-02-19T16:06:03.124Z",
               "EditorCaption": ""
             }
           ]
