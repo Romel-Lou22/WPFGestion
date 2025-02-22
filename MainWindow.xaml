@@ -34,7 +34,7 @@
         <DataTemplate DataType="{x:Type viewModel:VentasViewModel}">
             <local:VentasView/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type viewModel:ProvedoresViewModel}">
+        <DataTemplate DataType="{x:Type viewModel:ProveedoresViewModel}">
             <local:ProvedoresView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewModel:ProductosViewModel}">
@@ -121,39 +121,7 @@
                                        FontStyle="Oblique"
                                        VerticalAlignment="Center"
                                        Margin="10,0,0,0"/>
-                            <!-- Botón Toggle para mostrar/ocultar el menú -->
-                            <ToggleButton x:Name="ToggleMenuButton"
-                                          Width="30" Height="30"
-                                          Margin="10,0,0,0"
-                                          Style="{StaticResource CustomToggleButtonStyle}">
-                                <fa:IconImage Icon="Bars"
-                                              Foreground="{StaticResource TextColor}"
-                                              Width="20" Height="20" />
-                                <ToggleButton.Triggers>
-                                    <!-- Menú colapsado -->
-                                    <EventTrigger RoutedEvent="ToggleButton.Unchecked">
-                                        <BeginStoryboard>
-                                            <Storyboard x:Name="HidePanel">
-                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MenuColumn"
-                                                    Storyboard.TargetProperty="Width">
-                                                    <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="75"/>
-                                                </ObjectAnimationUsingKeyFrames>
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </EventTrigger>
-                                    <!-- Menú expandido -->
-                                    <EventTrigger RoutedEvent="ToggleButton.Checked">
-                                        <BeginStoryboard>
-                                            <Storyboard x:Name="ShowPanel">
-                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MenuColumn"
-                                                    Storyboard.TargetProperty="Width">
-                                                    <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="250"/>
-                                                </ObjectAnimationUsingKeyFrames>
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </EventTrigger>
-                                </ToggleButton.Triggers>
-                            </ToggleButton>
+                           
                         </StackPanel>
 
                         <!-- Título de la sección de menú -->
@@ -268,7 +236,7 @@
                                               Height="20" Width="20"
                                               Margin="5,0"
                                               />
-                                <TextBlock Text="Facturas"
+                                <TextBlock Text="Compras"
                                            Style="{StaticResource menuButtonText}"
                                            Margin="10,0,0,0"
                                            FontStyle="Oblique"

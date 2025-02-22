@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\ZenBook\\Desktop\\valido\\WPFGestion\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{FEE4234B-207A-4B65-B186-FDB961895B59}|SistemaGestion.csproj|c:\\users\\zenbook\\desktop\\valido\\wpfgestion\\view\\comprasview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{FEE4234B-207A-4B65-B186-FDB961895B59}|SistemaGestion.csproj|solutionrelative:view\\comprasview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{FEE4234B-207A-4B65-B186-FDB961895B59}|SistemaGestion.csproj|c:\\users\\zenbook\\desktop\\valido\\wpfgestion\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{FEE4234B-207A-4B65-B186-FDB961895B59}|SistemaGestion.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
@@ -19,14 +23,25 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "ComprasView.xaml",
+              "DocumentMoniker": "C:\\Users\\ZenBook\\Desktop\\valido\\WPFGestion\\View\\ComprasView.xaml",
+              "RelativeDocumentMoniker": "View\\ComprasView.xaml",
+              "ToolTip": "C:\\Users\\ZenBook\\Desktop\\valido\\WPFGestion\\View\\ComprasView.xaml",
+              "RelativeToolTip": "View\\ComprasView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-02-21T06:29:48.96Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Users\\ZenBook\\Desktop\\valido\\WPFGestion\\MainWindow.xaml",
               "RelativeDocumentMoniker": "MainWindow.xaml",
               "ToolTip": "C:\\Users\\ZenBook\\Desktop\\valido\\WPFGestion\\MainWindow.xaml",
               "RelativeToolTip": "MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-02-19T16:06:03.124Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-21T06:26:45.438Z"
             }
           ]
         }

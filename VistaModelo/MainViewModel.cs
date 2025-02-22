@@ -96,7 +96,7 @@ namespace SistemaGestion.VistaModelo
 
         private void ExecuteShowProvedoresViewCommand(object obj)
         {
-            CurrentChildView = new ProvedoresViewModel();
+            CurrentChildView = new ProveedoresViewModel();
             Caption = "Provedores";
             Icon = IconChar.TruckFast;
         }
