@@ -1,2 +1,2 @@
 # WPFGesti-n
-Desarrollo de aplicación gestion para punto venta.
+Desarrollo de aplicación gestión para punto venta.
