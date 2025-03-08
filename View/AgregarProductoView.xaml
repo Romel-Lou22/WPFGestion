@@ -1,40 +1,51 @@
 ﻿<Window x:Class="SistemaGestion.View.AgregarProductoView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:local="clr-namespace:SistemaGestion.VistaModelo"
         Title="Agregar Producto"
         Height="450" Width="400"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         WindowStyle="SingleBorderWindow"
         ShowInTaskbar="False">
-
     <Grid Margin="10">
         <StackPanel>
             <TextBlock Text="Agregar Producto" FontSize="20" FontWeight="Bold" Margin="0,0,0,10" HorizontalAlignment="Center"/>
 
+            <!-- Nombre -->
             <TextBlock Text="Nombre:"/>
             <TextBox Text="{Binding Producto.Nombre, UpdateSourceTrigger=PropertyChanged}" Width="250"/>
 
+            <!-- Precio -->
             <TextBlock Text="Precio:"/>
             <TextBox Text="{Binding Producto.Precio, UpdateSourceTrigger=LostFocus}" Width="250"/>
 
+            <!-- Código de Barras -->
             <TextBlock Text="Código de Barras:"/>
             <TextBox Text="{Binding Producto.CodigoBarras, UpdateSourceTrigger=PropertyChanged}" Width="250"/>
 
-            <TextBlock Text="Fecha de Caducidad:"/>
-            <DatePicker SelectedDate="{Binding Producto.FechaCaducidad, UpdateSourceTrigger=PropertyChanged}" Width="250"/>
+            <!-- Stock -->
+            <TextBlock Text="Stock:"/>
+            <TextBox Text="{Binding Producto.Stock, UpdateSourceTrigger=PropertyChanged}" Width="250"/>
 
-            <TextBlock Text="Categoría:"/>
-            <TextBox Text="{Binding Producto.Categoria, UpdateSourceTrigger=PropertyChanged}" Width="250"/>
+            <!-- Categoría -->
+            <StackPanel Margin="10">
+                <TextBlock Text="Categoría:"/>
+                <ComboBox ItemsSource="{Binding ListaCategorias}"
+                          SelectedItem="{Binding Producto.Categoria, UpdateSourceTrigger=PropertyChanged}"
+                          Width="250"/>
+            </StackPanel>
 
+            <!-- Estado -->
             <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                 <TextBlock Text="Activo:" VerticalAlignment="Center"/>
                 <CheckBox IsChecked="{Binding Producto.Estado}"/>
             </StackPanel>
 
+            <!-- Botones -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
                 <Button Content="Guardar" Command="{Binding GuardarProductoCommand}" Width="100" Margin="10"/>
-                <Button Content="Cancelar" Click="CerrarVentana" Width="100" Margin="10"/>
+                <Button Content="Cancelar" Command="{Binding CerrarVentanaCommand}" Width="100" Margin="10"/>
             </StackPanel>
         </StackPanel>
     </Grid>

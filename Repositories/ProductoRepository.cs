@@ -12,12 +12,12 @@ namespace SistemaGestion.Repositories
         public void Add(ProductoModel producto)
         {
             using (var connection = GetConnection())
-            using (var command = new SqlCommand("INSERT INTO Productos (Nombre, Precio, CodigoBarras, FechaCaducidad, Categoria, Estado) VALUES (@Nombre, @Precio, @CodigoBarras, @FechaCaducidad, @Categoria, @Estado)", connection))
+            using (var command = new SqlCommand("INSERT INTO Productos (Nombre, Precio, CodigoBarras, Stock, Categoria, Estado) VALUES (@Nombre, @Precio, @CodigoBarras, @Stock, @Categoria, @Estado)", connection))
             {
                 command.Parameters.Add("@Nombre", SqlDbType.NVarChar).Value = producto.Nombre;
                 command.Parameters.Add("@Precio", SqlDbType.Decimal).Value = producto.Precio;
                 command.Parameters.Add("@CodigoBarras", SqlDbType.NVarChar).Value = producto.CodigoBarras;
-                command.Parameters.Add("@FechaCaducidad", SqlDbType.DateTime).Value = producto.FechaCaducidad;
+                command.Parameters.Add("@Stock", SqlDbType.Int).Value = producto.Stock;
                 command.Parameters.Add("@Categoria", SqlDbType.NVarChar).Value = producto.Categoria;
                 command.Parameters.Add("@Estado", SqlDbType.Bit).Value = producto.Estado;
 
@@ -30,13 +30,13 @@ namespace SistemaGestion.Repositories
         public void Edit(ProductoModel producto)
         {
             using (var connection = GetConnection())
-            using (var command = new SqlCommand("UPDATE Productos SET Nombre=@Nombre, Precio=@Precio, CodigoBarras=@CodigoBarras, FechaCaducidad=@FechaCaducidad, Categoria=@Categoria, Estado=@Estado WHERE ProductoId=@ProductoId", connection))
+            using (var command = new SqlCommand("UPDATE Productos SET Nombre=@Nombre, Precio=@Precio, CodigoBarras=@CodigoBarras, Stock=@Stock, Categoria=@Categoria, Estado=@Estado WHERE ProductoId=@ProductoId", connection))
             {
                 command.Parameters.Add("@ProductoId", SqlDbType.Int).Value = producto.Id;
                 command.Parameters.Add("@Nombre", SqlDbType.NVarChar).Value = producto.Nombre;
                 command.Parameters.Add("@Precio", SqlDbType.Decimal).Value = producto.Precio;
                 command.Parameters.Add("@CodigoBarras", SqlDbType.NVarChar).Value = producto.CodigoBarras;
-                command.Parameters.Add("@FechaCaducidad", SqlDbType.DateTime).Value = producto.FechaCaducidad;
+                command.Parameters.Add("@Stock", SqlDbType.Int).Value = producto.Stock;
                 command.Parameters.Add("@Categoria", SqlDbType.NVarChar).Value = producto.Categoria;
                 command.Parameters.Add("@Estado", SqlDbType.Bit).Value = producto.Estado;
 
@@ -62,7 +62,7 @@ namespace SistemaGestion.Repositories
         public ProductoModel GetById(int id)
         {
             using (var connection = GetConnection())
-            using (var command = new SqlCommand("SELECT ProductoId, Nombre, Precio, CodigoBarras, FechaCaducidad, Categoria, Estado FROM Productos WHERE Id=@Id", connection))
+            using (var command = new SqlCommand("SELECT ProductoId, Nombre, Precio, CodigoBarras, Stock, Categoria, Estado FROM Productos WHERE ProductoId=@Id", connection))
             {
                 command.Parameters.Add("@Id", SqlDbType.Int).Value = id;
 
@@ -77,7 +77,7 @@ namespace SistemaGestion.Repositories
                             Nombre = reader.GetString(1),
                             Precio = reader.GetDecimal(2),
                             CodigoBarras = reader.GetString(3),
-                            FechaCaducidad = reader.IsDBNull(4) ? DateTime.MinValue : reader.GetDateTime(4),
+                            Stock = reader.GetInt32(4),
                             Categoria = reader.IsDBNull(5) ? string.Empty : reader.GetString(5),
                             Estado = reader.GetBoolean(6)
                         };
@@ -94,7 +94,7 @@ namespace SistemaGestion.Repositories
             var productos = new List<ProductoModel>();
 
             using (var connection = GetConnection())
-            using (var command = new SqlCommand("SELECT ProductoId, Nombre, Precio, CodigoBarras, FechaCaducidad, Categoria, Estado FROM Productos", connection))
+            using (var command = new SqlCommand("SELECT ProductoId, Nombre, Precio, CodigoBarras, Stock, Categoria, Estado FROM Productos", connection))
             {
                 connection.Open();
                 using (var reader = command.ExecuteReader())
@@ -107,7 +107,7 @@ namespace SistemaGestion.Repositories
                             Nombre = reader.GetString(1),
                             Precio = reader.GetDecimal(2),
                             CodigoBarras = reader.GetString(3),
-                            FechaCaducidad = reader.IsDBNull(4) ? DateTime.MinValue : reader.GetDateTime(4),
+                            Stock = reader.GetInt32(4),
                             Categoria = reader.IsDBNull(5) ? string.Empty : reader.GetString(5),
                             Estado = reader.GetBoolean(6)
                         });

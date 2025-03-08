@@ -6,10 +6,39 @@
              xmlns:local="clr-namespace:SistemaGestion.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="BlanchedAlmond">
-        <TextBlock Text="StockProductos"
-                   HorizontalAlignment="Center"
-                   FontSize="30"/>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
+        <!-- Sección de Búsqueda -->
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
+            <TextBlock Text="Buscar Producto:" VerticalAlignment="Center" Margin="5"/>
+            <TextBox Width="200" Text="{Binding FiltroProducto, UpdateSourceTrigger=PropertyChanged}" Margin="5"/>
+            <Button Content="Buscar" Command="{Binding BuscarStockCommand}" Width="100" Margin="5"/>
+            <Button Content="Actualizar" Command="{Binding ActualizarStockCommand}" Width="100" Margin="5"/>
+        </StackPanel>
+
+        <!-- DataGrid de Stock -->
+        <DataGrid Grid.Row="1" ItemsSource="{Binding ListaStockFiltrada}" AutoGenerateColumns="False"
+                  CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID Stock" Binding="{Binding StockId}" Width="80" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Producto" Binding="{Binding NombreProducto}" Width="200" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Cantidad Disponible" Binding="{Binding CantidadDisponible}" Width="150" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Precio Unitario" Binding="{Binding PrecioUnitario, StringFormat=C}" Width="150" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Valor Total" Binding="{Binding ValorTotal, StringFormat=C}" Width="150" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Fecha Actualización" Binding="{Binding FechaActualizacion, StringFormat=d}" Width="150" IsReadOnly="True"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Sección de resumen del stock: Valor total invertido -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <TextBlock Text="Valor Total de Stock: " FontWeight="Bold" VerticalAlignment="Center" Foreground="Black"/>
+            <TextBlock Text="{Binding ValorTotalInventario, StringFormat={}{0:C2}}" 
+                       FontWeight="Bold" VerticalAlignment="Center" Foreground="Black" Margin="5,0,0,0"/>
+        </StackPanel>
     </Grid>
 </UserControl>

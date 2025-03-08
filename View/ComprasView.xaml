@@ -9,30 +9,46 @@
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- Cabecera -->
+            <!-- Cabecera de Compra y selección de Producto -->
             <RowDefinition Height="*"/>
             <!-- Detalles -->
             <RowDefinition Height="Auto"/>
-            <!-- Pie (total y botones) -->
+            <!-- Pie (Total y botones) -->
         </Grid.RowDefinitions>
 
         <!-- Cabecera de la Compra -->
         <StackPanel Orientation="Vertical" Grid.Row="0" Margin="0,0,0,10">
             <TextBlock Text="Registrar Compra" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+            <!-- Selección de Proveedor -->
             <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                <TextBlock Text="Proveedor ID:" Width="120" VerticalAlignment="Center"/>
-                <TextBox Text="{Binding Compra.ProveedorId, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
+                <TextBlock Text="Proveedor:" Width="120" VerticalAlignment="Center"/>
+                <ComboBox ItemsSource="{Binding ListaProveedores}"
+                          DisplayMemberPath="Nombre"
+                          SelectedValuePath="ProveedorId"
+                          SelectedValue="{Binding Compra.ProveedorId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          Width="200"/>
             </StackPanel>
+            <!-- Selección de Producto y botón para agregar -->
             <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                <TextBlock Text="Fecha de Compra:" Width="120" VerticalAlignment="Center"/>
-                <DatePicker SelectedDate="{Binding Compra.FechaCompra}" Width="200"/>
+                <TextBlock Text="Producto:" Width="120" VerticalAlignment="Center"/>
+                <ComboBox ItemsSource="{Binding ListaProductos}"
+                          DisplayMemberPath="Nombre"
+                          SelectedItem="{Binding SelectedProducto, Mode=TwoWay}"
+                          Width="200"/>
+                <Button Content="Agregar Producto"
+                        Command="{Binding AgregarDetalleCommand}"
+                        Margin="10,0,0,0"/>
+                <Button Content="Eliminar Producto"
+                        Command="{Binding EliminarDetalleCommand}"
+                        Margin="10,0,0,0"/>
             </StackPanel>
         </StackPanel>
 
-        <!-- Detalles de la Compra -->
-        <DataGrid Grid.Row="1" ItemsSource="{Binding Compra.Detalles}" AutoGenerateColumns="False" CanUserAddRows="False">
+        <!-- Detalles de la Compra (DataGrid) -->
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Compra.Detalles}" AutoGenerateColumns="False" CanUserAddRows="False"
+                   SelectedItem="{Binding DetalleSeleccionado, Mode=TwoWay}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Producto ID" Binding="{Binding ProductoId}" Width="*"/>
+                <DataGridTextColumn Header="Producto" Binding="{Binding NombreProducto}" Width="*"/>
                 <DataGridTextColumn Header="Cantidad" Binding="{Binding Cantidad}" Width="*"/>
                 <DataGridTextColumn Header="Precio Unitario" Binding="{Binding PrecioUnitario}" Width="*"/>
                 <DataGridTextColumn Header="Total" Binding="{Binding TotalDetalle}" Width="*"/>
@@ -50,7 +66,6 @@
                 <TextBlock Text="{Binding Compra.TotalCompra}" VerticalAlignment="Center" Margin="5,0,0,0"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Column="1">
-                <Button Content="Agregar Detalle" Command="{Binding AgregarDetalleCommand}" Margin="0,0,10,0"/>
                 <Button Content="Registrar Compra" Command="{Binding RegistrarCompraCommand}"/>
             </StackPanel>
         </Grid>

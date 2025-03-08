@@ -46,7 +46,7 @@
         <DataTemplate DataType="{x:Type viewModel:StockViewModel}">
             <local:StockView/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type viewModel:FacturasViewModel}">
+        <DataTemplate DataType="{x:Type viewModel:CompraViewModel}">
             <local:FacturasView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewModel:ReportesViewModel}">

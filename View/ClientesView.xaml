@@ -114,10 +114,10 @@
                           ColumnHeaderStyle="{StaticResource ModernDataGridColumnHeaderStyle}"
                           HeadersVisibility="Column">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Width="*"/>
-                        <DataGridTextColumn Header="Teléfono" Binding="{Binding Telefono}" Width="120"/>
-                        <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="160"/>
-                        <DataGridTextColumn Header="Dirección" Binding="{Binding Direccion}" Width="200"/>
+                        <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Width="175"/>
+                        <DataGridTextColumn Header="Teléfono" Binding="{Binding Telefono}" Width="110"/>
+                        <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="180"/>
+                        <DataGridTextColumn Header="Dirección" Binding="{Binding Direccion}" Width="*"/>
                         <DataGridTextColumn Header="Cedula" Binding="{Binding Cedula}" Width="80"/>
                     </DataGrid.Columns>
                 </DataGrid>

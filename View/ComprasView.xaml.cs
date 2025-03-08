@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SistemaGestion.VistaModelo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace SistemaGestion.View
         public FacturasView()
         {
             InitializeComponent();
+            this.DataContext = new CompraViewModel();
         }
     }
 }

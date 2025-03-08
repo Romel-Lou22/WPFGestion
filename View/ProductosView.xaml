@@ -192,8 +192,8 @@
                         <DataGridTextColumn Header="Precio" Binding="{Binding Precio, StringFormat=C}" Width="120"/>
                         <DataGridTextColumn Header="Código" Binding="{Binding CodigoBarras}" Width="160"/>
                         <!-- Columna para Fecha de Caducidad -->
-                        <DataGridTextColumn Header="Fecha de Caducidad" 
-							Binding="{Binding FechaCaducidad, StringFormat={}{0:d}}" 
+                        <DataGridTextColumn Header="Stock" 
+							Binding="{Binding Stock}" 
 							Width="120"/>
                         <!-- Columna para Categoría -->
                         <DataGridTextColumn Header="Categoría" 

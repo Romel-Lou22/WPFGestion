@@ -3,12 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\ZenBook\\Desktop\\valido\\WPFGestion\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FEE4234B-207A-4B65-B186-FDB961895B59}|SistemaGestion.csproj|c:\\users\\zenbook\\desktop\\valido\\wpfgestion\\view\\comprasview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{FEE4234B-207A-4B65-B186-FDB961895B59}|SistemaGestion.csproj|solutionrelative:view\\comprasview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{FEE4234B-207A-4B65-B186-FDB961895B59}|SistemaGestion.csproj|c:\\users\\zenbook\\desktop\\valido\\wpfgestion\\models\\compramodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FEE4234B-207A-4B65-B186-FDB961895B59}|SistemaGestion.csproj|solutionrelative:models\\compramodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FEE4234B-207A-4B65-B186-FDB961895B59}|SistemaGestion.csproj|c:\\users\\zenbook\\desktop\\valido\\wpfgestion\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{FEE4234B-207A-4B65-B186-FDB961895B59}|SistemaGestion.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{FEE4234B-207A-4B65-B186-FDB961895B59}|SistemaGestion.csproj|c:\\users\\zenbook\\desktop\\valido\\wpfgestion\\vistamodelo\\reportesviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FEE4234B-207A-4B65-B186-FDB961895B59}|SistemaGestion.csproj|solutionrelative:vistamodelo\\reportesviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FEE4234B-207A-4B65-B186-FDB961895B59}|SistemaGestion.csproj|c:\\users\\zenbook\\desktop\\valido\\wpfgestion\\models\\reportemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FEE4234B-207A-4B65-B186-FDB961895B59}|SistemaGestion.csproj|solutionrelative:models\\reportemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FEE4234B-207A-4B65-B186-FDB961895B59}|SistemaGestion.csproj|c:\\users\\zenbook\\desktop\\valido\\wpfgestion\\repositories\\comprarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FEE4234B-207A-4B65-B186-FDB961895B59}|SistemaGestion.csproj|solutionrelative:repositories\\comprarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FEE4234B-207A-4B65-B186-FDB961895B59}|SistemaGestion.csproj|c:\\users\\zenbook\\desktop\\valido\\wpfgestion\\repositories\\ventarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FEE4234B-207A-4B65-B186-FDB961895B59}|SistemaGestion.csproj|solutionrelative:repositories\\ventarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FEE4234B-207A-4B65-B186-FDB961895B59}|SistemaGestion.csproj|c:\\users\\zenbook\\desktop\\valido\\wpfgestion\\view\\reportesview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{FEE4234B-207A-4B65-B186-FDB961895B59}|SistemaGestion.csproj|solutionrelative:view\\reportesview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -23,25 +39,79 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ComprasView.xaml",
-              "DocumentMoniker": "C:\\Users\\ZenBook\\Desktop\\valido\\WPFGestion\\View\\ComprasView.xaml",
-              "RelativeDocumentMoniker": "View\\ComprasView.xaml",
-              "ToolTip": "C:\\Users\\ZenBook\\Desktop\\valido\\WPFGestion\\View\\ComprasView.xaml",
-              "RelativeToolTip": "View\\ComprasView.xaml",
+              "Title": "CompraModel.cs",
+              "DocumentMoniker": "C:\\Users\\ZenBook\\Desktop\\valido\\WPFGestion\\Models\\CompraModel.cs",
+              "RelativeDocumentMoniker": "Models\\CompraModel.cs",
+              "ToolTip": "C:\\Users\\ZenBook\\Desktop\\valido\\WPFGestion\\Models\\CompraModel.cs",
+              "RelativeToolTip": "Models\\CompraModel.cs",
+              "ViewState": "AgIAADMAAAAAAAAAAAAAADUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-07T02:25:45.015Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ReportesView.xaml",
+              "DocumentMoniker": "C:\\Users\\ZenBook\\Desktop\\valido\\WPFGestion\\View\\ReportesView.xaml",
+              "RelativeDocumentMoniker": "View\\ReportesView.xaml",
+              "ToolTip": "C:\\Users\\ZenBook\\Desktop\\valido\\WPFGestion\\View\\ReportesView.xaml",
+              "RelativeToolTip": "View\\ReportesView.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-02-21T06:29:48.96Z",
+              "WhenOpened": "2025-03-06T21:58:01.976Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CompraRepository.cs",
+              "DocumentMoniker": "C:\\Users\\ZenBook\\Desktop\\valido\\WPFGestion\\Repositories\\CompraRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\CompraRepository.cs",
+              "ToolTip": "C:\\Users\\ZenBook\\Desktop\\valido\\WPFGestion\\Repositories\\CompraRepository.cs",
+              "RelativeToolTip": "Repositories\\CompraRepository.cs",
+              "ViewState": "AgIAAB8BAAAAAAAAAAAUwEQBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-06T21:46:48.834Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ReporteModel.cs",
+              "DocumentMoniker": "C:\\Users\\ZenBook\\Desktop\\valido\\WPFGestion\\Models\\ReporteModel.cs",
+              "RelativeDocumentMoniker": "Models\\ReporteModel.cs",
+              "ToolTip": "C:\\Users\\ZenBook\\Desktop\\valido\\WPFGestion\\Models\\ReporteModel.cs",
+              "RelativeToolTip": "Models\\ReporteModel.cs",
+              "ViewState": "AgIAAEQAAAAAAAAAAAAIwHsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-06T21:46:36.698Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\ZenBook\\Desktop\\valido\\WPFGestion\\MainWindow.xaml",
-              "RelativeDocumentMoniker": "MainWindow.xaml",
-              "ToolTip": "C:\\Users\\ZenBook\\Desktop\\valido\\WPFGestion\\MainWindow.xaml",
-              "RelativeToolTip": "MainWindow.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-02-21T06:26:45.438Z"
+              "Title": "ReportesViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\ZenBook\\Desktop\\valido\\WPFGestion\\VistaModelo\\ReportesViewModel.cs",
+              "RelativeDocumentMoniker": "VistaModelo\\ReportesViewModel.cs",
+              "ToolTip": "C:\\Users\\ZenBook\\Desktop\\valido\\WPFGestion\\VistaModelo\\ReportesViewModel.cs",
+              "RelativeToolTip": "VistaModelo\\ReportesViewModel.cs",
+              "ViewState": "AgIAAIYAAAAAAAAAAAAAAIgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-06T21:56:01.955Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "VentaRepository.cs",
+              "DocumentMoniker": "C:\\Users\\ZenBook\\Desktop\\valido\\WPFGestion\\Repositories\\VentaRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\VentaRepository.cs",
+              "ToolTip": "C:\\Users\\ZenBook\\Desktop\\valido\\WPFGestion\\Repositories\\VentaRepository.cs",
+              "RelativeToolTip": "Repositories\\VentaRepository.cs",
+              "ViewState": "AgIAAA8BAAAAAAAAAAAIwCoBAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-06T21:46:52.16Z",
+              "EditorCaption": ""
             }
           ]
         }

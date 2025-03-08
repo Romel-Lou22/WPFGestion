@@ -42,6 +42,7 @@ namespace SistemaGestion.VistaModelo
             }
         }
 
+       
         // Comandos existentes
         public ICommand AbrirAgregarProductoCommand { get; set; }
         public ICommand CargarProductosCommand { get; set; }
@@ -66,6 +67,8 @@ namespace SistemaGestion.VistaModelo
 
             // Cargar productos al iniciar
             CargarProductos(null);
+
+
         }
 
         // Método que abre la ventana para agregar un nuevo producto
@@ -154,5 +157,8 @@ namespace SistemaGestion.VistaModelo
         {
             return parameter is ProductoModel;
         }
+
+
+
     }
 }

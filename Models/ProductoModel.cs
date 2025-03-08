@@ -9,15 +9,11 @@ namespace SistemaGestion.Models
         private string _nombre;
         private decimal _precio;
         private string _codigoBarras;
-        private DateTime _fechaCaducidad;
+        private int _stock;
         private string _categoria;
         private bool _estado;
 
-        public ProductoModel()
-        {
-            // Inicializa FechaCaducidad con la fecha actual para evitar el error
-            FechaCaducidad = DateTime.Now;
-        }
+        
 
         public int Id
         {
@@ -43,10 +39,10 @@ namespace SistemaGestion.Models
             set { _codigoBarras = value; OnPropertyChanged(nameof(CodigoBarras)); }
         }
 
-        public DateTime FechaCaducidad
+        public int Stock
         {
-            get => _fechaCaducidad;
-            set { _fechaCaducidad = value; OnPropertyChanged(nameof(FechaCaducidad)); }
+            get => _stock;
+            set { _stock = value; OnPropertyChanged(nameof(Stock)); }
         }
 
         public string Categoria
