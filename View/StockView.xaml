@@ -4,41 +4,216 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SistemaGestion.View"
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="600" d:DesignWidth="800">
+
+    <!-- #region Recursos y Estilos -->
+    <UserControl.Resources>
+        <!-- Estilo Moderno para Botones -->
+        <Style x:Key="ModernButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#34495e"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="4"
+                                SnapsToDevicePixels="True">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#2c3e50"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#2c3e50"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Estilo Moderno para TextBox -->
+        <Style x:Key="ModernTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="#34495e"/>
+            <Setter Property="BorderBrush" Value="#2c3e50"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+
+        <!-- Estilo Moderno para TextBlock -->
+        <Style x:Key="ModernTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontStyle" Value="Oblique"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <!-- Estilo Moderno para el DataGrid -->
+        <Style x:Key="ModernDataGridStyle" TargetType="DataGrid">
+            <Setter Property="Background" Value="#34495e"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="RowBackground" Value="#34495e"/>
+            <Setter Property="AlternatingRowBackground" Value="#3b566e"/>
+            <Setter Property="BorderBrush" Value="#2c3e50"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="#2c3e50"/>
+            <Setter Property="VerticalGridLinesBrush" Value="#2c3e50"/>
+        </Style>
+
+        <!-- Estilo para los Encabezados del DataGrid -->
+        <Style x:Key="ModernDataGridColumnHeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#2c3e50"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+    </UserControl.Resources>
+    <!-- #endregion -->
+
     <Grid Margin="10">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+        <Border BorderThickness="1">
+            <Border.Background>
+                <!-- Degradado modernizado basado en 34495e -->
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#2c3e50" Offset="0"/>
+                    <GradientStop Color="#34495e" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
 
-        <!-- Sección de Búsqueda -->
-        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
-            <TextBlock Text="Buscar Producto:" VerticalAlignment="Center" Margin="5"/>
-            <TextBox Width="200" Text="{Binding FiltroProducto, UpdateSourceTrigger=PropertyChanged}" Margin="5"/>
-            <Button Content="Buscar" Command="{Binding BuscarStockCommand}" Width="100" Margin="5"/>
-            <Button Content="Actualizar" Command="{Binding ActualizarStockCommand}" Width="100" Margin="5"/>
-        </StackPanel>
+            <Grid Margin="15">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <!-- Título -->
+                    <RowDefinition Height="Auto"/>
+                    <!-- Sección de Búsqueda -->
+                    <RowDefinition Height="*"/>
+                    <!-- DataGrid de Stock -->
+                    <RowDefinition Height="Auto"/>
+                    <!-- Sección de resumen -->
+                </Grid.RowDefinitions>
 
-        <!-- DataGrid de Stock -->
-        <DataGrid Grid.Row="1" ItemsSource="{Binding ListaStockFiltrada}" AutoGenerateColumns="False"
-                  CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="ID Stock" Binding="{Binding StockId}" Width="80" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Producto" Binding="{Binding NombreProducto}" Width="200" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Cantidad Disponible" Binding="{Binding CantidadDisponible}" Width="150" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Precio Unitario" Binding="{Binding PrecioUnitario, StringFormat=C}" Width="150" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Valor Total" Binding="{Binding ValorTotal, StringFormat=C}" Width="150" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Fecha Actualización" Binding="{Binding FechaActualizacion, StringFormat=d}" Width="150" IsReadOnly="True"/>
-            </DataGrid.Columns>
-        </DataGrid>
+                <!-- #region Título -->
+                <TextBlock Text="Gestión de Stock" 
+                           Grid.Row="0"
+                           HorizontalAlignment="Center"
+                           FontSize="28"
+                           FontWeight="Bold"
+                           FontStyle="Italic"
+                           Foreground="White"
+                           Margin="0,0,0,15"/>
+                <!-- #endregion -->
 
-        <!-- Sección de resumen del stock: Valor total invertido -->
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
-            <TextBlock Text="Valor Total de Stock: " FontWeight="Bold" VerticalAlignment="Center" Foreground="Black"/>
-            <TextBlock Text="{Binding ValorTotalInventario, StringFormat={}{0:C2}}" 
-                       FontWeight="Bold" VerticalAlignment="Center" Foreground="Black" Margin="5,0,0,0"/>
-        </StackPanel>
+                <!-- #region Sección de Búsqueda -->
+                <Grid Grid.Row="1" Margin="0,0,0,15">
+                    <Grid.ColumnDefinitions>
+                        <!-- Columna izquierda para búsqueda -->
+                        <ColumnDefinition Width="*" />
+                        <!-- Columna derecha para los botones de acciones -->
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Text="Buscar Producto:" 
+                                   Style="{StaticResource ModernTextBlockStyle}"
+                                   Margin="5"/>
+                        <TextBox Width="250" 
+                                 Style="{StaticResource ModernTextBoxStyle}"
+                                 Text="{Binding FiltroProducto, UpdateSourceTrigger=PropertyChanged}" 
+                                 ToolTip="Buscar producto por nombre o código..."/>
+                        <Button Style="{StaticResource ModernButtonStyle}"
+                                Background="#2c3e50"
+                                Command="{Binding BuscarStockCommand}">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <fa:IconImage Icon="Search" 
+                                              Height="16" Width="16" 
+                                              Margin="0,0,5,0" 
+                                              Foreground="White"/>
+                                <TextBlock Text="Buscar" 
+                                           Foreground="White" 
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+
+                    <Button Grid.Column="1"
+                            Style="{StaticResource ModernButtonStyle}"
+                            Background="#2c3e50"
+                            Command="{Binding ActualizarStockCommand}">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <fa:IconImage Icon="ArrowsRotate" 
+                                          Height="16" Width="16" 
+                                          Margin="0,0,5,0" 
+                                          Foreground="White"/>
+                            <TextBlock Text="Actualizar" 
+                                       Foreground="White" 
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+                <!-- #endregion -->
+
+                <!-- #region DataGrid de Stock -->
+                <DataGrid Grid.Row="2" 
+                          ItemsSource="{Binding ListaStockFiltrada}" 
+                          AutoGenerateColumns="False"
+                          CanUserAddRows="False" 
+                          CanUserDeleteRows="False" 
+                          IsReadOnly="True"
+                          Style="{StaticResource ModernDataGridStyle}"
+                          ColumnHeaderStyle="{StaticResource ModernDataGridColumnHeaderStyle}"
+                          HeadersVisibility="Column">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID Stock" Binding="{Binding StockId}" Width="80"/>
+                        <DataGridTextColumn Header="Producto" Binding="{Binding NombreProducto}" Width="*"/>
+                        <DataGridTextColumn Header="Cantidad Disponible" Binding="{Binding CantidadDisponible}" Width="130"/>
+                        <DataGridTextColumn Header="Precio Unitario" Binding="{Binding PrecioUnitario, StringFormat=C}" Width="130"/>
+                        <DataGridTextColumn Header="Valor Total" Binding="{Binding ValorTotal, StringFormat=C}" Width="130"/>
+                        <DataGridTextColumn Header="Fecha Actualización" Binding="{Binding FechaActualizacion, StringFormat=d}" Width="150"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <!-- #endregion -->
+
+                <!-- #region Sección de resumen del stock -->
+                <Grid Grid.Row="3" Margin="0,15,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Contador de productos -->
+                    <TextBlock Grid.Column="0"
+                               Text="{Binding ListaStockFiltrada.Count, StringFormat='Total de productos en stock: {0}'}"
+                               FontStyle="Italic" 
+                               Foreground="White"/>
+
+                    <!-- Valor total invertido -->
+                    <StackPanel Grid.Column="1" 
+                                Orientation="Horizontal" 
+                                HorizontalAlignment="Right">
+                        <TextBlock Text="Valor Total de Stock: " 
+                                   FontWeight="Bold" 
+                                   FontSize="16"
+                                   FontStyle="Oblique"
+                                   Foreground="White"/>
+                        <TextBlock Text="{Binding ValorTotalInventario, StringFormat={}{0:C2}}" 
+                                   FontWeight="Bold" 
+                                   FontSize="16"
+                                   FontStyle="Oblique"
+                                   Foreground="White" 
+                                   Margin="5,0,0,0"/>
+                    </StackPanel>
+                </Grid>
+                <!-- #endregion -->
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>

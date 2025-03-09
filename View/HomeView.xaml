@@ -4,57 +4,245 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression.blend/2008" 
              xmlns:local="clr-namespace:SistemaGestion.View"
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="900">
 
-    <Grid Background="#1B144B" >
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+    <!-- #region Recursos y Estilos -->
+    <UserControl.Resources>
+        <!-- Estilo Moderno para Bordes/Tarjetas -->
+        <Style x:Key="ModernCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="#34495e"/>
+           
+            <Setter Property="Padding" Value="15"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect ShadowDepth="2" Opacity="0.3" BlurRadius="5"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
-        <!-- #region Título del Dashboard -->
-        <TextBlock Text="Dashboard de Gestión"
-                   FontSize="26" FontWeight="Bold"
-                   Foreground="White" HorizontalAlignment="Center"/>
-        <!-- #endregion -->
+        <!-- Estilo para ListBox -->
+        <Style x:Key="ModernListBoxStyle" TargetType="ListBox">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
 
-        <Grid Grid.Row="1" Margin="0,20,0,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+        <!-- Estilo para ListBoxItem -->
+        <Style x:Key="ModernListBoxItemStyle" TargetType="ListBoxItem">
+            <Setter Property="Padding" Value="8,5"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderThickness="0"
+                                CornerRadius="4"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#3b566e"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#2c3e50"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <!-- #endregion -->
 
-            <!-- #region Sección de Resumen de Ventas -->
-            <StackPanel Grid.Column="0" Margin="10">
-                <TextBlock Text="Resumen de Ventas" FontSize="18" FontWeight="Bold" Foreground="White"/>
-                <StackPanel Orientation="Horizontal" Margin="10,5">
-                    <Border Background="#28AEED"   Margin="5">
-                        <StackPanel>
-                            <TextBlock Text="Ventas Hoy" Foreground="White"/>
-                            <TextBlock Text="$15,200" Foreground="White" FontSize="20" FontWeight="Bold"/>
+    <Grid Margin="10">
+        <Border BorderThickness="1">
+            <Border.Background>
+                <!-- Degradado modernizado basado en la misma paleta de colores -->
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#2c3e50" Offset="0"/>
+                    <GradientStop Color="#34495e" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <Grid Margin="15">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- #region Título del Dashboard -->
+                <TextBlock Text="Dashboard de Gestión"
+                           Grid.Row="0"
+                           HorizontalAlignment="Center"
+                           FontSize="28"
+                           FontWeight="Bold"
+                           FontStyle="Italic"
+                           Foreground="White"/>
+                <!-- #endregion -->
+
+                <Grid Grid.Row="1" Margin="0,20,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- #region Sección de Resumen de Ventas -->
+                    <Border Grid.Column="0" 
+                            Margin="0,0,10,0"
+                            Background="#34495e" 
+                            CornerRadius="8">
+                        <StackPanel Margin="15">
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                                <fa:IconImage Icon="ChartLine" 
+                                              Height="20" Width="20" 
+                                              Margin="0,0,8,0" 
+                                              Foreground="White"/>
+                                <TextBlock Text="Resumen de Ventas" 
+                                           FontSize="18" 
+                                           FontWeight="Bold" 
+                                           Foreground="White"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,10">
+                                <!-- Tarjeta Ventas Hoy -->
+                                <Border Style="{StaticResource ModernCardStyle}" 
+                                        Background="#28AEED" 
+                                        Width="170">
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                            <fa:IconImage Icon="CalendarDay" 
+                                                          Height="16" Width="16" 
+                                                          Margin="0,0,5,0" 
+                                                          Foreground="White"/>
+                                            <TextBlock Text="Ventas Hoy" 
+                                                       Foreground="White" 
+                                                       VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                        <TextBlock Text="{Binding VentasHoy, StringFormat=C}"
+                                                   Foreground="White" 
+                                                   FontSize="20" 
+                                                   FontWeight="Bold"/>
+                                    </StackPanel>
+                                </Border>
+
+                                <!-- Tarjeta Ingresos Mensuales -->
+                                <Border Style="{StaticResource ModernCardStyle}" 
+                                        Background="#DA43AE" 
+                                        Width="170">
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                            <fa:IconImage Icon="CalendarAlt" 
+                                                          Height="16" Width="16" 
+                                                          Margin="0,0,5,0" 
+                                                          Foreground="White"/>
+                                            <TextBlock Text="Ingresos Mensuales" 
+                                                       Foreground="White" 
+                                                       VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                        <TextBlock Text="{Binding IngresosMensuales, StringFormat=C}" 
+                                                   Foreground="White" 
+                                                   FontSize="20" 
+                                                   FontWeight="Bold"/>
+                                    </StackPanel>
+                                </Border>
+
+                                <!-- Tarjeta Clientes -->
+                                <Border Style="{StaticResource ModernCardStyle}" 
+                                        Background="#2c3e50" 
+                                        Width="170">
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                            <fa:IconImage Icon="Users" 
+                                                          Height="16" Width="16" 
+                                                          Margin="0,0,5,0" 
+                                                          Foreground="White"/>
+                                            <TextBlock Text="Clientes Activos" 
+                                                       Foreground="White" 
+                                                       VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                        <TextBlock Text="{Binding TotalClientes}" 
+                                                   Foreground="White" 
+                                                   FontSize="20" 
+                                                   FontWeight="Bold"/>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
                         </StackPanel>
                     </Border>
-                    <Border Background="#DA43AE" Padding="15" CornerRadius="10" Margin="5">
-                        <StackPanel>
-                            <TextBlock Text="Ingresos Mensuales" Foreground="White"/>
-                            <TextBlock Text="$320,500" Foreground="White" FontSize="20" FontWeight="Bold"/>
+                    <!-- #endregion -->
+
+                    <!-- #region Sección de Alertas y Notificaciones -->
+                    <Border Grid.Column="1" 
+                            Background="#2c3e50" 
+                            CornerRadius="8">
+                        <StackPanel Margin="15">
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                                <fa:IconImage Icon="Bell" 
+                                              Height="18" Width="18" 
+                                              Margin="0,0,8,0" 
+                                              Foreground="White"/>
+                                <TextBlock Text="Notificaciones" 
+                                           FontSize="16" 
+                                           FontWeight="Bold" 
+                                           Foreground="White"/>
+                            </StackPanel>
+
+                            <ListBox Style="{StaticResource ModernListBoxStyle}"
+                                     ItemContainerStyle="{StaticResource ModernListBoxItemStyle}">
+                                <ListBoxItem>
+                                    <StackPanel Orientation="Horizontal">
+                                        <fa:IconImage Icon="ExclamationTriangle" 
+                                                     Height="14" Width="14" 
+                                                     Margin="0,0,8,0" 
+                                                     Foreground="#FFC107"/>
+                                        <TextBlock Text="Producto 'Laptop Dell' con stock bajo."
+                                                   TextWrapping="Wrap" Foreground="White"/>
+                                    </StackPanel>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <StackPanel Orientation="Horizontal">
+                                        <fa:IconImage Icon="CheckCircle" 
+                                                     Height="14" Width="14" 
+                                                     Margin="0,0,8,0" 
+                                                     Foreground="#4CAF50"/>
+                                        <TextBlock Text="Nueva venta realizada por $200."
+                                                   TextWrapping="Wrap" Foreground="White"/>
+                                    </StackPanel>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <StackPanel Orientation="Horizontal">
+                                        <fa:IconImage Icon="UserTie" 
+                                                     Height="14" Width="14" 
+                                                     Margin="0,0,8,0" 
+                                                     Foreground="#FF5722"/>
+                                        <TextBlock Text="Cliente VIP realizó una compra."
+                                                   TextWrapping="Wrap" Foreground="White"/>
+                                    </StackPanel>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <StackPanel Orientation="Horizontal">
+                                        <fa:IconImage Icon="Info" 
+                                                     Height="14" Width="14" 
+                                                     Margin="0,0,8,0" 
+                                                     Foreground="#2196F3"/>
+                                        <TextBlock Text="3 productos nuevos añadidos al inventario."
+                                                   TextWrapping="Wrap" Foreground="White"/>
+                                    </StackPanel>
+                                </ListBoxItem>
+                            </ListBox>
                         </StackPanel>
                     </Border>
-                </StackPanel>
-            </StackPanel>
-            <!-- #endregion -->
-
-            <!-- #region Sección de Alertas y Notificaciones -->
-            <StackPanel Grid.Column="1" Background="#2c3e50">
-                <TextBlock Text="Notificaciones" FontSize="16" FontWeight="Bold" Foreground="White"/>
-                <ListBox Foreground="White" Background="#2c3e50" BorderThickness="0">
-                    <ListBoxItem Content="🔔 Producto 'Laptop Dell' con stock bajo."/>
-                    <ListBoxItem Content="🔔 Nueva venta realizada por $200."/>
-                    <ListBoxItem Content="🔔 Cliente VIP realizó una compra."/>
-                </ListBox>
-            </StackPanel>
-            <!-- #endregion -->
-        </Grid>
+                    <!-- #endregion -->
+                </Grid>
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>
