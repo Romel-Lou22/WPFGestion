@@ -289,11 +289,25 @@ namespace SistemaGestion.Repositories
                 {
                     while (reader.Read())
                     {
+                        DateTime fechaVenta;
+                        // Si el valor es DBNull o está fuera del rango, asigna un valor por defecto
+                        if (reader.IsDBNull(2))
+                        {
+                            fechaVenta = new DateTime(1753, 1, 1);
+                        }
+                        else
+                        {
+                            fechaVenta = reader.GetDateTime(2);
+                            // Si la fecha es menor que el mínimo permitido, la ajustamos
+                            if (fechaVenta < new DateTime(1753, 1, 1))
+                                fechaVenta = new DateTime(1753, 1, 1);
+                        }
+
                         ventas.Add(new VentaModel
                         {
                             VentaId = reader.GetInt32(0),
-                           
-                            FechaVenta = reader.GetDateTime(2),
+                            // Puedes agregar el mapeo de ClienteId si lo necesitas
+                            FechaVenta = fechaVenta,
                             Total = reader.GetDecimal(3),
                             Estado = reader.GetString(4)
                         });
@@ -302,6 +316,7 @@ namespace SistemaGestion.Repositories
             }
             return ventas;
         }
+
 
 
     }

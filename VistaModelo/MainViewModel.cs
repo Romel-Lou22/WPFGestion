@@ -69,7 +69,7 @@ namespace SistemaGestion.VistaModelo
         private void ExecuteShowFacturasViewModel(object obj)
         {
             CurrentChildView = new CompraViewModel();
-            Caption = "Facturas";
+            Caption = "Compras";
             Icon = IconChar.FileInvoiceDollar;
         }
 
