@@ -10,6 +10,7 @@
 
     <!-- #region Recursos y Estilos -->
     <UserControl.Resources>
+        <!-- Estilo Moderno para Botones -->
         <Style x:Key="ModernButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="#34495e"/>
             <Setter Property="Foreground" Value="White"/>
@@ -17,19 +18,46 @@
             <Setter Property="Margin" Value="5"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="4"
+                                SnapsToDevicePixels="True">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#2c3e50"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#2c3e50"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
 
+        <!-- Estilo Moderno para el DataGrid -->
         <Style x:Key="ModernDataGridStyle" TargetType="DataGrid">
             <Setter Property="Background" Value="#34495e"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="RowBackground" Value="#34495e"/>
             <Setter Property="AlternatingRowBackground" Value="#3b566e"/>
+            <Setter Property="BorderBrush" Value="#2c3e50"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="#2c3e50"/>
+            <Setter Property="VerticalGridLinesBrush" Value="#2c3e50"/>
         </Style>
 
+        <!-- Estilo para los Encabezados del DataGrid -->
         <Style x:Key="ModernDataGridColumnHeaderStyle" TargetType="DataGridColumnHeader">
             <Setter Property="Background" Value="#2c3e50"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderThickness" Value="0"/>
         </Style>
     </UserControl.Resources>
     <!-- #endregion -->
@@ -37,6 +65,7 @@
     <Grid Background="Transparent" Margin="10">
         <Border BorderThickness="1">
             <Border.Background>
+                <!-- Degradado modernizado basado en 34495e -->
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="#2c3e50" Offset="0"/>
                     <GradientStop Color="#34495e" Offset="1"/>
@@ -64,43 +93,80 @@
                 <!-- #region Barra de Herramientas -->
                 <Grid Grid.Row="1" Margin="0,10,0,10">
                     <Grid.ColumnDefinitions>
+                        <!-- Columna izquierda para búsqueda -->
                         <ColumnDefinition Width="*" />
+                        <!-- Columna derecha para los botones de acciones -->
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
+                    <!-- Caja de búsqueda y botón Buscar en la columna izquierda -->
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <TextBox Width="250" Margin="5"
                                  Text="{Binding FiltroBusqueda, UpdateSourceTrigger=PropertyChanged}"
                                  ToolTip="Buscar cliente..."
                                  Background="White" Foreground="#34495e"
                                  BorderThickness="1"/>
-                        <Button Style="{StaticResource ModernButtonStyle}" Command="{Binding BuscarClienteCommand}">
+                        <Button Style="{StaticResource ModernButtonStyle}"
+                                Background="#2c3e50"
+                                Command="{Binding BuscarClienteCommand}">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <fa:IconImage Icon="Search" Height="16" Width="16" Margin="0,0,5,0" Foreground="White"/>
-                                <TextBlock Text="Buscar" Foreground="White" VerticalAlignment="Center"/>
+                                <fa:IconImage Icon="Search" 
+                                              Height="16" Width="16" 
+                                              Margin="0,0,5,0" 
+                                              Foreground="White"/>
+                                <TextBlock Text="Buscar" 
+                                           Foreground="White" 
+                                           VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
                     </StackPanel>
 
+                    <!-- Botones de acción en la columna derecha -->
                     <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                        <Button Style="{StaticResource ModernButtonStyle}" Command="{Binding AbrirAgregarClienteCommand}">
+                        <!-- Botón Nuevo -->
+                        <Button Style="{StaticResource ModernButtonStyle}" 
+                                Background="#2c3e50" 
+                                Command="{Binding AbrirAgregarClienteCommand}">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <fa:IconImage Icon="UserPlus" Height="16" Width="16" Margin="0,0,5,0" Foreground="White"/>
-                                <TextBlock Text="Nuevo" Foreground="White" VerticalAlignment="Center"/>
+                                <fa:IconImage Icon="UserPlus" 
+                                              Height="16" Width="16" 
+                                              Margin="0,0,5,0" 
+                                              Foreground="White"/>
+                                <TextBlock Text="Nuevo" 
+                                           Foreground="White" 
+                                           VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
 
-                        <Button Style="{StaticResource ModernButtonStyle}" Command="{Binding EditarClienteCommand}" CommandParameter="{Binding SelectedItem, ElementName=ClientesGrid}">
+                        <!-- Botón Editar -->
+                        <Button Style="{StaticResource ModernButtonStyle}" 
+                                Background="#2c3e50" 
+                                Command="{Binding EditarClienteCommand}"
+                                CommandParameter="{Binding SelectedItem, ElementName=ClientesGrid}">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <fa:IconImage Icon="Edit" Height="16" Width="16" Margin="0,0,5,0" Foreground="White"/>
-                                <TextBlock Text="Editar" Foreground="White" VerticalAlignment="Center"/>
+                                <fa:IconImage Icon="Edit" 
+                                              Height="16" Width="16" 
+                                              Margin="0,0,5,0" 
+                                              Foreground="White"/>
+                                <TextBlock Text="Editar" 
+                                           Foreground="White" 
+                                           VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
 
-                        <Button Style="{StaticResource ModernButtonStyle}" Command="{Binding EliminarClienteCommand}" CommandParameter="{Binding SelectedItem, ElementName=ClientesGrid}">
+                        <!-- Botón Eliminar -->
+                        <Button Style="{StaticResource ModernButtonStyle}" 
+                                Background="#2c3e50" 
+                                Command="{Binding EliminarClienteCommand}"
+                                CommandParameter="{Binding SelectedItem, ElementName=ClientesGrid}">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <fa:IconImage Icon="TrashCan" Height="16" Width="16" Margin="0,0,5,0" Foreground="White"/>
-                                <TextBlock Text="Eliminar" Foreground="White" VerticalAlignment="Center"/>
+                                <fa:IconImage Icon="TrashCan" 
+                                              Height="16" Width="16" 
+                                              Margin="0,0,5,0" 
+                                              Foreground="White"/>
+                                <TextBlock Text="Eliminar" 
+                                           Foreground="White" 
+                                           VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
                     </StackPanel>
@@ -124,7 +190,8 @@
                 <!-- #endregion -->
 
                 <!-- #region Contador de Clientes -->
-                <TextBlock Grid.Row="3" Text="{Binding Clientes.Count, StringFormat='Total de clientes: {0}'}"
+                <TextBlock Grid.Row="3" 
+                           Text="{Binding Clientes.Count, StringFormat='Total de clientes: {0}'}"
                            HorizontalAlignment="Right" FontStyle="Italic" Foreground="White"/>
                 <!-- #endregion -->
             </Grid>

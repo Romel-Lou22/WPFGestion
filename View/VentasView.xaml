@@ -46,9 +46,16 @@
             <Setter Property="RowBackground" Value="#34495e"/>
             <Setter Property="AlternatingRowBackground" Value="#3b566e"/>
             <Setter Property="BorderBrush" Value="#2c3e50"/>
+            <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="HorizontalGridLinesBrush" Value="#2c3e50"/>
             <Setter Property="VerticalGridLinesBrush" Value="#2c3e50"/>
+            <Setter Property="CanUserResizeColumns" Value="False"/>
+            <Setter Property="CanUserResizeRows" Value="False"/>
+            <Setter Property="RowHeight" Value="20"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
         </Style>
+
 
         <!-- Estilo para los Encabezados del DataGrid -->
         <Style x:Key="ModernDataGridColumnHeaderStyle" TargetType="DataGridColumnHeader">
