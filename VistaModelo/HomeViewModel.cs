@@ -1,14 +1,17 @@
-﻿using System;
-using System.Collections.Specialized;
-using System.Linq;
-using SistemaGestion.Models;
+﻿using SistemaGestion.Models;
 using SistemaGestion.Repositories;
+using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Windows;
 
 namespace SistemaGestion.VistaModelo
 {
     public class HomeViewModel : ViewModelBase
     {
-        public ClientesViewModel ClientesVM { get; set; }
+        private readonly IClienteRepository _clienteRepository;
+        private readonly IVentaRepository _ventaRepository;
+
         private int _totalClientes;
         public int TotalClientes
         {
@@ -23,39 +26,50 @@ namespace SistemaGestion.VistaModelo
             set { _ventasHoy = value; OnPropertyChanged(nameof(VentasHoy)); }
         }
 
-        private readonly IVentaRepository _ventaRepository;
-
         private decimal _ingresosMensuales;
         public decimal IngresosMensuales
         {
             get => _ingresosMensuales;
-            set
-            {
-                if (_ingresosMensuales != value)
-                {
-                    _ingresosMensuales = value;
-                    OnPropertyChanged(nameof(IngresosMensuales));
-                }
-            }
+            set { _ingresosMensuales = value; OnPropertyChanged(nameof(IngresosMensuales)); }
         }
 
-       
+        private string _notificacionVenta;
+        public string NotificacionVenta
+        {
+            get => _notificacionVenta;
+            set { _notificacionVenta = value; OnPropertyChanged(nameof(NotificacionVenta)); }
+        }
+
+        private decimal _ultimaVentaMonto;
+        public decimal UltimaVentaMonto
+        {
+            get => _ultimaVentaMonto;
+            set { _ultimaVentaMonto = value; OnPropertyChanged(nameof(UltimaVentaMonto)); }
+        }
+
+        private string _ultimaVentaCliente;
+        public string UltimaVentaCliente
+        {
+            get => _ultimaVentaCliente;
+            set { _ultimaVentaCliente = value; OnPropertyChanged(nameof(UltimaVentaCliente)); }
+        }
 
 
         public HomeViewModel()
         {
-            ClientesVM = new ClientesViewModel();
-            ClientesVM.Clientes.CollectionChanged += Clientes_CollectionChanged;
-            TotalClientes = ClientesVM.Clientes.Count;
-
+            _clienteRepository = new ClienteRepository();
             _ventaRepository = new VentaRepository();
+
+            CargarClientes();
             ConsultarVentasHoy();
             ConsultarIngresosMensuales();
+            ConsultarNotificacionVenta();
         }
 
-        private void Clientes_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void CargarClientes()
         {
-            TotalClientes = ClientesVM.Clientes.Count;
+            var clientes = _clienteRepository.GetAll();
+            TotalClientes = clientes.Count();
         }
 
         private void ConsultarVentasHoy()
@@ -66,18 +80,65 @@ namespace SistemaGestion.VistaModelo
                 var ventasHoy = _ventaRepository.GetReportes(hoy, hoy);
                 VentasHoy = ventasHoy.Sum(v => v.Total);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // Manejo mínimo de errores
+                MessageBox.Show("Error al consultar ventas de hoy: " + ex.Message);
             }
         }
 
         private void ConsultarIngresosMensuales()
         {
-            DateTime inicioMes = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
-            DateTime finMes = inicioMes.AddMonths(1).AddDays(-1);
-            var ventasMes = _ventaRepository.GetReportes(inicioMes, finMes);
-            IngresosMensuales = ventasMes.Sum(v => v.Total);
+            try
+            {
+                DateTime inicioMes = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+                DateTime finMes = inicioMes.AddMonths(1).AddDays(-1);
+                var ventasMes = _ventaRepository.GetReportes(inicioMes, finMes);
+                IngresosMensuales = ventasMes.Sum(v => v.Total);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al consultar ingresos mensuales: " + ex.Message);
+            }
         }
+
+        private void ConsultarNotificacionVenta()
+        {
+            DateTime hoy = DateTime.Today;
+            var ventasHoy = _ventaRepository.GetReportes(hoy, hoy)
+                                            .OrderByDescending(v => v.FechaVenta)
+                                            .ToList();
+            if (ventasHoy.Any())
+            {
+                var ultimaVenta = ventasHoy.First();
+                if (ultimaVenta.ClienteId.HasValue)
+                {
+                    var cliente = _clienteRepository.GetById(ultimaVenta.ClienteId.Value);
+                    if (cliente != null)
+                    {
+                        Debug.WriteLine($"[ConsultarNotificacionVenta] Cliente encontrado: {cliente.Nombre}");
+                        UltimaVentaCliente = cliente.Nombre;
+                    }
+                    else
+                    {
+                        Debug.WriteLine($"[ConsultarNotificacionVenta] No se encontró cliente para ID: {ultimaVenta.ClienteId.Value}");
+                        UltimaVentaCliente = "Desconocido";
+                    }
+                }
+                else
+                {
+                    Debug.WriteLine("[ConsultarNotificacionVenta] ClienteId es null, se usa 'Consumidor Final'");
+                    UltimaVentaCliente = "Consumidor Final";
+                }
+                UltimaVentaMonto = ultimaVenta.Total;
+            }
+            else
+            {
+                UltimaVentaMonto = 0;
+                UltimaVentaCliente = "";
+            }
+        }
+
+
+
     }
 }

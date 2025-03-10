@@ -307,6 +307,7 @@ namespace SistemaGestion.Repositories
                         {
                             VentaId = reader.GetInt32(0),
                             // Puedes agregar el mapeo de ClienteId si lo necesitas
+                            ClienteId = reader.IsDBNull(1) ? (int?)null : reader.GetInt32(1),
                             FechaVenta = fechaVenta,
                             Total = reader.GetDecimal(3),
                             Estado = reader.GetString(4)

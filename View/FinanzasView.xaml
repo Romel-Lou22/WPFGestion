@@ -66,6 +66,20 @@
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Padding" Value="5"/>
         </Style>
+
+        <!-- Estilo para DatePicker con error de validación -->
+        <Style TargetType="DatePicker">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="ToolTip" 
+                            Value="{Binding RelativeSource={RelativeSource Self}, 
+                            Path=(Validation.Errors)[0].ErrorContent}"/>
+                    <Setter Property="BorderBrush" Value="Red"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
     <!-- #endregion -->
 
@@ -88,12 +102,12 @@
                             <StackPanel Margin="10">
                                 <TextBlock Text="Fecha Inicio:" FontWeight="Bold" Foreground="White"/>
                                 <DatePicker Style="{StaticResource ModernDatePickerStyle}" 
-                                            SelectedDate="{Binding FechaInicio}" />
+                                            SelectedDate="{Binding FechaInicio, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
                             <StackPanel Margin="10">
                                 <TextBlock Text="Fecha Fin:" FontWeight="Bold" Foreground="White"/>
                                 <DatePicker Style="{StaticResource ModernDatePickerStyle}" 
-                                            SelectedDate="{Binding FechaFin}" />
+                                            SelectedDate="{Binding FechaFin, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
                         </StackPanel>
                         <!-- Botón de consulta con ícono -->
