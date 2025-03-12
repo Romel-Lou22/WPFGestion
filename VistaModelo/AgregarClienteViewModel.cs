@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Input;
 using SistemaGestion.Models;
 using SistemaGestion.Repositories;
@@ -32,6 +33,16 @@ namespace SistemaGestion.VistaModelo
             if (string.IsNullOrEmpty(Cliente.Nombre) || string.IsNullOrEmpty(Cliente.Telefono))
             {
                 MessageBox.Show("El nombre y teléfono son obligatorios.",
+                              "Error",
+                              MessageBoxButton.OK,
+                              MessageBoxImage.Warning);
+                return;
+            }
+
+            // Validación del número de teléfono
+            if (!Regex.IsMatch(Cliente.Telefono, @"^\d{7,}$"))
+            {
+                MessageBox.Show("El número de teléfono debe contener solo dígitos y tener al menos 7 caracteres.",
                               "Error",
                               MessageBoxButton.OK,
                               MessageBoxImage.Warning);
