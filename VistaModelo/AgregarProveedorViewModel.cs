@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Input;
 using SistemaGestion.Models;
 using SistemaGestion.Repositories;
@@ -34,6 +35,14 @@ namespace SistemaGestion.VistaModelo
             if (string.IsNullOrEmpty(Proveedor.Nombre))
             {
                 MessageBox.Show("El nombre es obligatorio.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Validación de email si está presente
+            if (!string.IsNullOrEmpty(Proveedor.Email) && !Regex.IsMatch(Proveedor.Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+            {
+                MessageBox.Show("Por favor, ingrese un email válido.",
+                                "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
