@@ -37,6 +37,13 @@ namespace SistemaGestion.VistaModelo
                 return;
             }
 
+            // Validación adicional: la cantidad en stock no puede ser negativa
+            if (Producto.Cantidad < 0)
+            {
+                MessageBox.Show("La cantidad en stock no puede ser negativa.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             if (Producto.Id == 0)
             {
                 _productoRepository.Add(Producto);
@@ -51,13 +58,10 @@ namespace SistemaGestion.VistaModelo
             CerrarVentana(obj);
         }
 
-
-
         private void CerrarVentana(object obj)
         {
             Window ventana = obj as Window;
             ventana?.Close();
         }
     }
-
 }
