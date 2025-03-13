@@ -4,19 +4,28 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using SistemaGestion.Models;
 using SistemaGestion.Repositories;
-using SistemaGestion.Services;  // Agregar esta referencia
+using SistemaGestion.Services;
 
 namespace SistemaGestion.VistaModelo
 {
     public class CompraViewModel : ViewModelBase
     {
         private readonly ICompraRepository _compraRepository;
-        private readonly InventarioService _inventarioService;  // Añadir servicio de inventario
+        private readonly InventarioService _inventarioService;
+        private DetalleCompraRepository _detalleCompraRepository;
 
         public CompraModel Compra { get; set; }
 
         public ObservableCollection<ProveedorModel> ListaProveedores { get; set; }
         public ObservableCollection<ProductoModel> ListaProductos { get; set; }
+
+        // Propiedad para el proveedor seleccionado
+        private ProveedorModel _selectedProveedor;
+        public ProveedorModel SelectedProveedor
+        {
+            get => _selectedProveedor;
+            set { _selectedProveedor = value; OnPropertyChanged(nameof(SelectedProveedor)); }
+        }
 
         // Propiedad para el producto seleccionado en el ComboBox
         private ProductoModel _selectedProducto;
@@ -40,9 +49,10 @@ namespace SistemaGestion.VistaModelo
         public CompraViewModel()
         {
             _compraRepository = new CompraRepository();
+            _detalleCompraRepository = new DetalleCompraRepository();
 
             // Inicializar el servicio de inventario
-            var stockRepository = new StockRepository(); // Asumiendo que tienes esta implementación
+            var stockRepository = new StockRepository(); // Se asume que existe esta implementación
             _inventarioService = new InventarioService(stockRepository);
 
             Compra = new CompraModel();
@@ -62,9 +72,41 @@ namespace SistemaGestion.VistaModelo
 
         private void RegistrarCompra(object obj)
         {
+            // Validación: Se debe seleccionar un proveedor.
+            if (SelectedProveedor == null)
+            {
+                MessageBox.Show("Debe seleccionar un proveedor.", "Validación", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Validación: Se debe agregar al menos un producto en los detalles.
+            if (Compra.Detalles == null || Compra.Detalles.Count == 0)
+            {
+                MessageBox.Show("Debe agregar al menos un producto a la compra.", "Validación", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Validación: No se permiten valores negativos en cantidad y precio unitario.
+            foreach (var detalle in Compra.Detalles)
+            {
+                if (detalle.Cantidad < 0)
+                {
+                    MessageBox.Show("La cantidad no puede ser negativa.", "Validación", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+                if (detalle.PrecioUnitario < 0)
+                {
+                    MessageBox.Show("El precio unitario no puede ser negativo.", "Validación", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+            }
+
             try
             {
-                // Registrar la compra primero
+                // Asignar el proveedor a la compra (asumiendo que CompraModel tiene una propiedad ProveedorId)
+                Compra.ProveedorId = SelectedProveedor.ProveedorId;
+
+                // Registrar la compra
                 _compraRepository.Add(Compra);
 
                 // Actualizar el inventario para cada detalle de la compra
@@ -87,19 +129,36 @@ namespace SistemaGestion.VistaModelo
             }
         }
 
-        // El resto de métodos se mantienen igual...
         private void AgregarDetalle(object obj)
         {
             if (SelectedProducto != null)
             {
-                // Agrega un nuevo detalle usando el producto seleccionado
-                Compra.Detalles.Add(new DetalleCompraModel
+                // Obtener el último precio registrado para el producto.
+                // Se asume que tienes acceso a una instancia del repository que implementa GetUltimoPrecioCompra.
+                decimal precioCompra = 0;
+                decimal? ultimoPrecio = _detalleCompraRepository.GetUltimoPrecioCompra(SelectedProducto.Id);
+                if (ultimoPrecio.HasValue)
+                    precioCompra = ultimoPrecio.Value;
+                else
+                    precioCompra = 0;  // Si nunca se ha comprado, asigna 0.
+
+                // Verificar si el producto ya existe en la compra para actualizar el detalle existente.
+                var detalleExistente = Compra.Detalles.FirstOrDefault(d => d.ProductoId == SelectedProducto.Id);
+                if (detalleExistente != null)
                 {
-                    ProductoId = SelectedProducto.Id,
-                    Cantidad = 1,
-                    PrecioUnitario = 0
-                });
-                // Opcional: Resetear la selección
+                    detalleExistente.PrecioUnitario = precioCompra;
+                    detalleExistente.Cantidad += 1;
+                }
+                else
+                {
+                    Compra.Detalles.Add(new DetalleCompraModel
+                    {
+                        ProductoId = SelectedProducto.Id,
+                        Cantidad = 1,
+                        PrecioUnitario = precioCompra
+                    });
+                }
+                // Reiniciar la selección del producto
                 SelectedProducto = null;
                 OnPropertyChanged(nameof(Compra));
             }

@@ -42,10 +42,10 @@ namespace SistemaGestion.Comprobante
                 // Encabezado con Nombre de la Empresa y RUC (datos estáticos, adaptar según tus necesidades)
                 Paragraph encabezadoEmpresa = new Paragraph();
                 encabezadoEmpresa.Alignment = Element.ALIGN_CENTER;
-                encabezadoEmpresa.Add(new Chunk("TU EMPRESA S.A.\n", fuenteTitulo));
+                encabezadoEmpresa.Add(new Chunk("POSS.A.\n", fuenteTitulo));
                 encabezadoEmpresa.Add(new Chunk("RUC: 9999999999001\n", fuenteSubtitulo));
-                encabezadoEmpresa.Add(new Chunk("Dir. Matriz: Tu dirección principal\n", fuentePequena));
-                encabezadoEmpresa.Add(new Chunk("Dir. Sucursal: Tu dirección sucursal\n", fuentePequena));
+                encabezadoEmpresa.Add(new Chunk("Dir. LATACUNGA\n", fuentePequena));
+                encabezadoEmpresa.Add(new Chunk("Dir. LATACUNGA\n", fuentePequena));
                 encabezadoEmpresa.Add(new Chunk("Obligado a llevar contabilidad: SI\n", fuentePequena));
                 documento.Add(encabezadoEmpresa);
 
@@ -154,7 +154,7 @@ namespace SistemaGestion.Comprobante
                 { Border = Rectangle.NO_BORDER, HorizontalAlignment = Element.ALIGN_RIGHT });
 
                 // IVA
-                tablaTotales.AddCell(new PdfPCell(new Phrase("IVA 12%:", fuenteNegrita))
+                tablaTotales.AddCell(new PdfPCell(new Phrase("IVA 15%:", fuenteNegrita))
                 { Border = Rectangle.NO_BORDER, HorizontalAlignment = Element.ALIGN_RIGHT });
 
                 tablaTotales.AddCell(new PdfPCell(new Phrase(iva.ToString("0.00"), fuenteNormal))

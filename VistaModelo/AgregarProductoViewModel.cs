@@ -55,9 +55,24 @@ namespace SistemaGestion.VistaModelo
 
         private void GuardarProducto(object obj)
         {
-            if (string.IsNullOrEmpty(Producto.Nombre) || Producto.Precio <= 0)
+            // Validación: El nombre es obligatorio.
+            if (string.IsNullOrEmpty(Producto.Nombre))
             {
-                MessageBox.Show("Debe llenar todos los campos correctamente.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("El nombre es obligatorio.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Validación: El precio debe ser mayor a cero (evitando negativos y cero).
+            if (Producto.Precio <= 0)
+            {
+                MessageBox.Show("El precio debe ser mayor a cero y no puede ser negativo.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Validación: El stock no puede ser negativo (puede ser cero).
+            if (Producto.Stock < 0)
+            {
+                MessageBox.Show("El stock no puede ser negativo.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -65,15 +80,19 @@ namespace SistemaGestion.VistaModelo
             {
                 _productoRepository.Add(Producto);
                 MessageBox.Show("Producto agregado con éxito.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                // Limpiar los campos reiniciando la propiedad Producto
+                Producto = new ProductoModel();
+                OnPropertyChanged(nameof(Producto));
             }
             else
             {
                 _productoRepository.Edit(Producto);
                 MessageBox.Show("Producto editado con éxito.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
+                CerrarVentana(obj);
             }
-
-            CerrarVentana(obj);
         }
+
 
         private void CerrarVentana(object obj)
         {

@@ -193,7 +193,8 @@
                         <DataGridTextColumn Header="Código" Binding="{Binding CodigoBarras}" Width="160"/>
                         <!-- Columna para Fecha de Caducidad -->
                         <DataGridTextColumn Header="Stock" 
-							Binding="{Binding Stock}" 
+							Binding="{Binding Stock}"
+                            Visibility="Collapsed"                
 							Width="120"/>
                         <!-- Columna para Categoría -->
                         <DataGridTextColumn Header="Categoría" 

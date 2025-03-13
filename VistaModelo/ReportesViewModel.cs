@@ -81,6 +81,13 @@ namespace SistemaGestion.VistaModelo
 
         private void ConsultarReportes(object obj)
         {
+            // Validar que la fecha de inicio no sea mayor que la fecha de fin.
+            if (FechaInicio > FechaFin)
+            {
+                MessageBox.Show("La fecha de inicio no puede ser mayor que la fecha de fin.", "Validación", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             try
             {
                 Reportes.Clear();
@@ -122,8 +129,6 @@ namespace SistemaGestion.VistaModelo
                         catch (Exception ex)
                         {
                             Debug.WriteLine($"[ViewModel] Error procesando CompraId {compra.CompraId}: {ex.Message}");
-                            // Para mayor visibilidad, se podría utilizar MessageBox:
-                            // MessageBox.Show($"Error procesando CompraId {compra.CompraId}: {ex.Message}");
                         }
                     }
                 }
@@ -136,9 +141,17 @@ namespace SistemaGestion.VistaModelo
         }
 
 
+
         private void ExportarPDF(object obj)
         {
+            if (Reportes == null || Reportes.Count == 0)
+            {
+                MessageBox.Show("No hay datos para exportar.", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
 
+            ComprobanteReportes.GenerarComprobantePDF(Reportes);
         }
+
     }
 }

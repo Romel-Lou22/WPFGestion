@@ -126,13 +126,12 @@
                         <TextBlock Text="Proveedor:" 
                                    Style="{StaticResource ModernTextBlockStyle}"/>
                         <ComboBox Grid.Column="1"
-                                  Style="{StaticResource ModernComboBoxStyle}"
-                                  ItemsSource="{Binding ListaProveedores}"
-                                  DisplayMemberPath="Nombre"
-                                  SelectedValuePath="ProveedorId"
-                                  SelectedValue="{Binding Compra.ProveedorId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                  Width="200"
-                                  HorizontalAlignment="Left"/>
+          Style="{StaticResource ModernComboBoxStyle}"
+          ItemsSource="{Binding ListaProveedores}"
+          DisplayMemberPath="Nombre"
+          SelectedItem="{Binding SelectedProveedor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+          Width="200"
+          HorizontalAlignment="Left"/>
                     </Grid>
 
                     <!-- Selección de Producto y botones para agregar/eliminar -->

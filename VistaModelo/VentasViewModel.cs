@@ -67,7 +67,7 @@ namespace SistemaGestion.VistaModelo
             ListaProductos = new ObservableCollection<ProductoModel>(_allProductos);
 
             // Inicializar comandos
-            RegistrarVentaCommand = new ViewModelCommand(RegistrarVenta);
+            RegistrarVentaCommand = new ViewModelCommand(RegistrarVenta, PuedeRegistrarVenta);
             EliminarDetalleCommand = new ViewModelCommand(EliminarDetalle, PuedeEliminarDetalle);
             BuscarClienteCommand = new ViewModelCommand(BuscarCliente);
             BuscarProductoCommand = new ViewModelCommand(BuscarProducto);
@@ -221,6 +221,13 @@ namespace SistemaGestion.VistaModelo
 
             return true;
         }
+
+        // Validar si se puede registrar la venta
+        private bool PuedeRegistrarVenta(object obj)
+        {
+            // Verificar que haya al menos un producto en la venta
+            return Venta.Detalles.Count > 0;
+        }
         #endregion
 
         #region Métodos de Negocio
@@ -228,6 +235,14 @@ namespace SistemaGestion.VistaModelo
         {
             try
             {
+                // Verificar que haya al menos un producto
+                if (Venta.Detalles.Count == 0)
+                {
+                    MessageBox.Show("Debe agregar al menos un producto para registrar la venta.",
+                        "Validación", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
                 // Verificar stock para todos los productos antes de proceder
                 foreach (var detalle in Venta.Detalles)
                 {
@@ -399,6 +414,9 @@ namespace SistemaGestion.VistaModelo
 
             // Notificar a la UI que la colección y los totales han cambiado
             NotificarCambiosCalculos();
+
+            // Notificar para actualizar el estado de los comandos
+            CommandManager.InvalidateRequerySuggested();
         }
 
         // Método que se llama cuando cambian propiedades de un detalle

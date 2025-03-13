@@ -99,5 +99,21 @@ namespace SistemaGestion.Repositories
             }
             return detalles;
         }
+
+        public decimal? GetUltimoPrecioCompra(int productoId)
+        {
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand("SELECT TOP 1 PrecioUnitario FROM DetalleCompras WHERE ProductoId = @ProductoId ORDER BY DetalleCompraId DESC", connection))
+            {
+                command.Parameters.Add("@ProductoId", SqlDbType.Int).Value = productoId;
+                connection.Open();
+                var result = command.ExecuteScalar();
+                if (result != null && result != DBNull.Value)
+                    return Convert.ToDecimal(result);
+            }
+            return null;
+        }
+
+
     }
 }

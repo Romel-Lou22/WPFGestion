@@ -33,61 +33,63 @@ namespace SistemaGestion.Repositories
             try
             {
                 using (var connection = GetConnection())
-                using (var command = new SqlCommand("UPDATE Proveedores SET Nombre=@Nombre, Telefono=@Telefono, Email=@Email, Direccion=@Direccion", connection))
+                using (var command = new SqlCommand(
+                    "UPDATE Proveedores " +
+                    "SET Nombre=@Nombre, Telefono=@Telefono, Email=@Email, Direccion=@Direccion " +
+                    "WHERE ProveedorId=@ProveedorId", // <-- IMPORTANTE
+                    connection))
                 {
                     command.Parameters.Add("@Nombre", SqlDbType.NVarChar).Value = proveedor.Nombre;
                     command.Parameters.Add("@Telefono", SqlDbType.NVarChar).Value = (object)proveedor.Telefono ?? DBNull.Value;
                     command.Parameters.Add("@Email", SqlDbType.NVarChar).Value = (object)proveedor.Email ?? DBNull.Value;
                     command.Parameters.Add("@Direccion", SqlDbType.NVarChar).Value = (object)proveedor.Direccion ?? DBNull.Value;
 
+                    // Falta agregar este parámetro
+                    command.Parameters.Add("@ProveedorId", SqlDbType.Int).Value = proveedor.ProveedorId;
+
                     connection.Open();
                     command.ExecuteNonQuery();
-
                 }
             }
-            catch (Exception ex )
+            catch (Exception ex)
             {
-                MessageBox.Show($"Error al insertar Proveedor {ex.Message}");
-            }
-
-            
-        }
-
-        public void Remove(int id)
-        {
-            using (var connection = GetConnection())
-            using (var command = new SqlCommand("DELETE FROM Proveedores WHERE ProveedorId=@ProveedorId", connection))
-            {
-                command.Parameters.Add("@ProveedorId", SqlDbType.Int).Value = id;
-                connection.Open();
-                command.ExecuteNonQuery();
+                MessageBox.Show($"Error al actualizar Proveedor: {ex.Message}");
             }
         }
+
 
         public ProveedorModel GetById(int id)
         {
-            using (var connection = GetConnection())
-            using (var command = new SqlCommand("SELECT ProveedorId, Nombre, Telefono, Email, Direccion FROM Proveedores WHERE ProveedorId=@ProveedorId", connection))
+            try
             {
-                command.Parameters.Add("@ProveedorId", SqlDbType.Int).Value = id;
-                connection.Open();
-                using (var reader = command.ExecuteReader())
+                using (var connection = GetConnection())
+                using (var command = new SqlCommand("SELECT ProveedorId, Nombre, Telefono, Email, Direccion FROM Proveedores WHERE ProveedorId=@ProveedorId", connection))
                 {
-                    if (reader.Read())
+                    command.Parameters.Add("@ProveedorId", SqlDbType.Int).Value = id;
+                    connection.Open();
+                    using (var reader = command.ExecuteReader())
                     {
-                        return new ProveedorModel
+                        if (reader.Read())
                         {
-                            ProveedorId = reader.GetInt32(0),
-                            Nombre = reader.GetString(1),
-                            Telefono = reader.IsDBNull(2) ? null : reader.GetString(2),
-                            Email = reader.IsDBNull(3) ? null : reader.GetString(3),
-                            Direccion = reader.IsDBNull(4) ? null : reader.GetString(4)
-                        };
+                            return new ProveedorModel
+                            {
+                                ProveedorId = reader.GetInt32(0),
+                                Nombre = reader.GetString(1),
+                                Telefono = reader.IsDBNull(2) ? null : reader.GetString(2),
+                                Email = reader.IsDBNull(3) ? null : reader.GetString(3),
+                                Direccion = reader.IsDBNull(4) ? null : reader.GetString(4)
+                            };
+                        }
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al obtener el proveedor: {ex.Message}");
+            }
             return null;
         }
+
 
         public IEnumerable<ProveedorModel> GetAll()
         {

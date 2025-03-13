@@ -5,6 +5,7 @@
         Height="500" Width="400"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
+        Background="#34495e"
         WindowStyle="SingleBorderWindow"
         ShowInTaskbar="False">
 
