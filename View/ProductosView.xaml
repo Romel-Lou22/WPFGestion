@@ -162,14 +162,15 @@
 
                         <!-- Botón Eliminar -->
                         <Button Style="{StaticResource ModernButtonStyle}" 
-			Background="#2c3e50" 
-			Command="{Binding EliminarProductoCommand}"
-			CommandParameter="{Binding SelectedItem, ElementName=ProductosGrid}">
+			                    Background="#2c3e50" 
+                                Visibility="Collapsed"
+			                    Command="{Binding EliminarProductoCommand}"
+			                    CommandParameter="{Binding SelectedItem, ElementName=ProductosGrid}">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <fa:IconImage Icon="TrashCan" 
-					  Height="16" Width="16" 
-					  Margin="0,0,5,0" 
-					  Foreground="White"/>
+					                          Height="16" Width="16" 
+					                           Margin="0,0,5,0" 
+					                          Foreground="White"/>
                                 <TextBlock Text="Eliminar" 
 				   Foreground="White" 
 				   VerticalAlignment="Center"/>
@@ -182,28 +183,31 @@
 
                 <!-- #region Lista de Productos -->
                 <DataGrid x:Name="ProductosGrid" Grid.Row="2" ItemsSource="{Binding Productos}"
-		  AutoGenerateColumns="False" IsReadOnly="True" 
-		  SelectionMode="Single"
-		  Style="{StaticResource ModernDataGridStyle}"
-		  ColumnHeaderStyle="{StaticResource ModernDataGridColumnHeaderStyle}"
-		  HeadersVisibility="Column">
+          AutoGenerateColumns="False" IsReadOnly="True" 
+          SelectionMode="Single"
+          Style="{StaticResource ModernDataGridStyle}"
+          ColumnHeaderStyle="{StaticResource ModernDataGridColumnHeaderStyle}"
+          HeadersVisibility="Column">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Width="*"/>
-                        <DataGridTextColumn Header="Precio" Binding="{Binding Precio, StringFormat=C}" Width="120"/>
-                        <DataGridTextColumn Header="Código" Binding="{Binding CodigoBarras}" Width="160"/>
-                        <!-- Columna para Fecha de Caducidad -->
-                        <DataGridTextColumn Header="Stock" 
-							Binding="{Binding Stock}"
-                            Visibility="Collapsed"                
-							Width="120"/>
-                        <!-- Columna para Categoría -->
-                        <DataGridTextColumn Header="Categoría" 
-							Binding="{Binding Categoria}" 
-							Width="150"/>
+                        <DataGridTextColumn Header="Nombre Producto" Binding="{Binding Nombre}" Width="*"/>
+                        <DataGridTextColumn Header="Precio Venta" Binding="{Binding Precio, StringFormat=C}" Width="120"/>
+                        <DataGridTextColumn Header="Código Barras" Binding="{Binding CodigoBarras}" Width="160"/>
+                        <DataGridTextColumn Header="Stock" Binding="{Binding Stock}" Visibility="Collapsed" Width="120"/>
+                        <DataGridTextColumn Header="Categoría" Binding="{Binding Categoria}" Width="150"/>
                         <DataGridCheckBoxColumn Header="Activo" Binding="{Binding Estado}" Width="80"/>
                     </DataGrid.Columns>
-                </DataGrid>
-                <!-- #endregion -->
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Estado}" Value="False">
+                                    <Setter Property="Foreground" Value="Gray"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.RowStyle>
+                    </DataGrid>
+
+                    <!-- #endregion -->
 
 
                 <!-- #region Contador de Productos -->

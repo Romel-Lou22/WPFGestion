@@ -13,5 +13,13 @@ namespace SistemaGestion.Models
         void Remove(int id);
         ClienteModel GetById(int id);
         IEnumerable<ClienteModel> GetAll();
+
+        bool ExisteClienteNombre(string nombre);
+        bool ExisteClienteNombre(string nombre, int id);
+        bool ExisteClienteCedula(string cedula);
+        bool ExisteClienteCedula(string cedula, int id);
+
+        void ActualizarEstado(int id, bool estado);
+        IEnumerable<ClienteModel> GetClientesActivos();
     }
 }

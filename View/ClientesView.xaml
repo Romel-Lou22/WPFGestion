@@ -156,7 +156,8 @@
 
                         <!-- Botón Eliminar -->
                         <Button Style="{StaticResource ModernButtonStyle}" 
-                                Background="#2c3e50" 
+                                Background="#2c3e50"
+                                 Visibility="Collapsed"
                                 Command="{Binding EliminarClienteCommand}"
                                 CommandParameter="{Binding SelectedItem, ElementName=ClientesGrid}">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -165,7 +166,8 @@
                                               Margin="0,0,5,0" 
                                               Foreground="White"/>
                                 <TextBlock Text="Eliminar" 
-                                           Foreground="White" 
+                                           Foreground="White"
+                                          
                                            VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
@@ -175,19 +177,30 @@
 
                 <!-- #region Lista de Clientes -->
                 <DataGrid x:Name="ClientesGrid" Grid.Row="2" ItemsSource="{Binding Clientes}"
-                          AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single"
-                          Style="{StaticResource ModernDataGridStyle}"
-                          ColumnHeaderStyle="{StaticResource ModernDataGridColumnHeaderStyle}"
-                          HeadersVisibility="Column">
+          AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single"
+          Style="{StaticResource ModernDataGridStyle}"
+          ColumnHeaderStyle="{StaticResource ModernDataGridColumnHeaderStyle}"
+          HeadersVisibility="Column">
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Activo}" Value="False">
+                                    <Setter Property="Foreground" Value="Gray"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.RowStyle>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Width="175"/>
+                        <DataGridTextColumn Header="Nombre y Apellido" Binding="{Binding Nombre}" Width="175"/>
+                        <DataGridTextColumn Header="Cedula" Binding="{Binding Cedula}" Width="80"/>
                         <DataGridTextColumn Header="Teléfono" Binding="{Binding Telefono}" Width="110"/>
                         <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="180"/>
                         <DataGridTextColumn Header="Dirección" Binding="{Binding Direccion}" Width="*"/>
-                        <DataGridTextColumn Header="Cedula" Binding="{Binding Cedula}" Width="80"/>
+                        <DataGridCheckBoxColumn Header="Activo" Binding="{Binding Activo}" Width="80"/>
                     </DataGrid.Columns>
                 </DataGrid>
                 <!-- #endregion -->
+
 
                 <!-- #region Contador de Clientes -->
                 <TextBlock Grid.Row="3" 

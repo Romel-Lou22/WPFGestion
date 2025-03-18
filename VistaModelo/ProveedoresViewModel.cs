@@ -123,7 +123,7 @@ namespace SistemaGestion.VistaModelo
 
                 if (resultado == MessageBoxResult.Yes)
                 {
-                    _proveedorRepository.remove(proveedor.ProveedorId);
+                    _proveedorRepository.Remove(proveedor.ProveedorId);
                     Proveedores.Remove(proveedor);
                 }
             }

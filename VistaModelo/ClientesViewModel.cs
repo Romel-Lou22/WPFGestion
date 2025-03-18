@@ -41,12 +41,17 @@ namespace SistemaGestion.VistaModelo
         public ICommand EditarClienteCommand { get; }
         public ICommand EliminarClienteCommand { get; }
         public ICommand BuscarClienteCommand { get; }
+        public ICommand DeshabilitarClienteCommand { get; }
 
         public ClientesViewModel()
         {
             _clienteRepository = new ClienteRepository();
             Clientes = new ObservableCollection<ClienteModel>();
             _allClientes = new List<ClienteModel>();
+
+            _clienteRepository = new ClienteRepository();
+            // Cargar lista de clientes...
+            DeshabilitarClienteCommand = new ViewModelCommand(DeshabilitarCliente, PuedeDeshabilitarCliente);
 
             // Inicializar comandos
             AbrirAgregarClienteCommand = new ViewModelCommand(AbrirAgregarCliente);
@@ -85,13 +90,15 @@ namespace SistemaGestion.VistaModelo
                 var texto = FiltroBusqueda.Trim().ToLower();
                 var clientesFiltrados = _allClientes
                     .Where(c => c.Nombre.ToLower().Contains(texto) ||
-                               c.Email.ToLower().Contains(texto) ||
-                               c.Telefono.Contains(texto))
+                               (c.Email != null && c.Email.ToLower().Contains(texto)) ||
+                               (c.Telefono != null && c.Telefono.Contains(texto)) ||
+                               (c.Cedula != null && c.Cedula.ToLower().Contains(texto)))
                     .ToList();
 
                 Clientes = new ObservableCollection<ClienteModel>(clientesFiltrados);
             }
         }
+
 
         private void EditarCliente(object parameter)
         {
@@ -131,6 +138,25 @@ namespace SistemaGestion.VistaModelo
         private bool PuedeEliminarCliente(object parameter)
         {
             return parameter is ClienteModel;
+        }
+
+        private void DeshabilitarCliente(object parameter)
+        {
+            if (parameter is ClienteModel cliente)
+            {
+                var resultado = MessageBox.Show($"¿Está seguro de que desea deshabilitar al cliente '{cliente.Nombre}'?",
+                                                 "Confirmar Deshabilitación", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (resultado == MessageBoxResult.Yes)
+                {
+                    _clienteRepository.ActualizarEstado(cliente.Id, false);
+                    cliente.Activo = false;  // Actualiza el modelo para refrescar la UI.
+                }
+            }
+        }
+
+        private bool PuedeDeshabilitarCliente(object parameter)
+        {
+            return parameter is ClienteModel cliente && cliente.Activo;
         }
     }
 }

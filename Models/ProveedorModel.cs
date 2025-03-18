@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SistemaGestion.Models
 {
@@ -14,6 +10,13 @@ namespace SistemaGestion.Models
         private string _telefono;
         private string _email;
         private string _direccion;
+        private bool _estado;  // Usamos Estado
+
+        public ProveedorModel()
+        {
+            // Por defecto, se crea activo
+            Estado = true;
+        }
 
         public int ProveedorId
         {
@@ -45,6 +48,13 @@ namespace SistemaGestion.Models
             set { _direccion = value; OnPropertyChanged(nameof(Direccion)); }
         }
 
+        // Propiedad que indica si el proveedor está activo o inactivo.
+        public bool Estado
+        {
+            get => _estado;
+            set { _estado = value; OnPropertyChanged(nameof(Estado)); }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
         {
@@ -52,4 +62,3 @@ namespace SistemaGestion.Models
         }
     }
 }
-

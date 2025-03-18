@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SistemaGestion.Models
 {
-    public class ClienteModel:INotifyPropertyChanged
+    public class ClienteModel : INotifyPropertyChanged
     {
         private int _id;
         private string _nombre;
@@ -22,8 +18,9 @@ namespace SistemaGestion.Models
         public ClienteModel()
         {
             FechaCreacion = DateTime.Now;
+            // Por defecto, el cliente se crea activo.
+            Activo = true;
         }
-
 
         public int Id
         {
@@ -41,7 +38,6 @@ namespace SistemaGestion.Models
         {
             get => _cedula;
             set { _cedula = value; OnPropertyChanged(nameof(Cedula)); }
-
         }
 
         public string Telefono
@@ -74,6 +70,7 @@ namespace SistemaGestion.Models
             set { _fechaModificacion = value; OnPropertyChanged(nameof(FechaModificacion)); }
         }
 
+        // Propiedad que representa el estado: Activo (true) o Inactivo (false)
         public bool Activo
         {
             get => _activo;
@@ -81,7 +78,6 @@ namespace SistemaGestion.Models
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

@@ -59,12 +59,16 @@ namespace SistemaGestion.VistaModelo
             Venta.Detalles.CollectionChanged += Detalles_CollectionChanged;
 
             // Cargar la lista completa de clientes
-            _allClientes = _clienteRepository.GetAll().ToList();
+            // Cargar la lista de clientes activos
+            _allClientes = _clienteRepository.GetClientesActivos().ToList();
             ListaClientes = new ObservableCollection<ClienteModel>(_allClientes);
 
-            // Cargar la lista completa de productos
-            _allProductos = _productoRepository.GetAll().ToList();
+
+
+            // Cargar la lista de productos activos
+            _allProductos = _productoRepository.GetProductosActivos().ToList();
             ListaProductos = new ObservableCollection<ProductoModel>(_allProductos);
+
 
             // Inicializar comandos
             RegistrarVentaCommand = new ViewModelCommand(RegistrarVenta, PuedeRegistrarVenta);
@@ -157,11 +161,18 @@ namespace SistemaGestion.VistaModelo
             get => _pagoCliente;
             set
             {
+                if (value < 0)
+                {
+                    MessageBox.Show("El efectivo recibido no puede ser negativo.",
+                        "Validación", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
                 _pagoCliente = value;
                 OnPropertyChanged(nameof(PagoCliente));
                 OnPropertyChanged(nameof(Vuelto));
             }
         }
+
 
         public bool EfectivoExacto
         {
@@ -235,6 +246,13 @@ namespace SistemaGestion.VistaModelo
         {
             try
             {
+                // Mostrar mensaje de confirmación
+                var resultado = MessageBox.Show("¿Está seguro de realizar la venta?", "Confirmación de Venta", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (resultado != MessageBoxResult.Yes)
+                {
+                    return;
+                }
+
                 // Verificar que haya al menos un producto
                 if (Venta.Detalles.Count == 0)
                 {
@@ -248,7 +266,7 @@ namespace SistemaGestion.VistaModelo
                 {
                     if (!ValidarStockDisponible(detalle))
                     {
-                        // Si algún producto no tiene stock suficiente, cancelar toda la operación
+                        // Si algún producto no tiene stock suficiente, cancelar la operación
                         return;
                     }
                 }
@@ -280,7 +298,6 @@ namespace SistemaGestion.VistaModelo
                 PagoCliente = 0;
                 EfectivoExacto = false;
 
-                // Notificar cambios en propiedades calculadas
                 NotificarCambiosCalculos();
             }
             catch (Exception ex)
@@ -288,6 +305,7 @@ namespace SistemaGestion.VistaModelo
                 MessageBox.Show("Error al registrar la venta: " + ex.Message);
             }
         }
+
 
         private void EliminarDetalle(object obj)
         {
@@ -342,34 +360,48 @@ namespace SistemaGestion.VistaModelo
                 return;
             }
 
-            if (Venta.Detalles.Any(d => d.ProductoId == ProductoSeleccionado.Id))
+            // Buscar si el producto ya está agregado en el detalle
+            var detalleExistente = Venta.Detalles.FirstOrDefault(d => d.ProductoId == ProductoSeleccionado.Id);
+            if (detalleExistente != null)
             {
-                MessageBox.Show("El producto ya está agregado en el detalle de la venta.");
-                return;
+                // Calcular la nueva cantidad
+                int nuevaCantidad = detalleExistente.Cantidad + 1;
+                // Verificar stock para la nueva cantidad
+                StockModel stock = _stockRepository.GetByProductoId(ProductoSeleccionado.Id);
+                if (stock == null || stock.CantidadDisponible < nuevaCantidad)
+                {
+                    decimal cantidadDisponible = stock?.CantidadDisponible ?? 0;
+                    MessageBox.Show($"No hay suficiente stock para incrementar la cantidad del producto '{ProductoSeleccionado.Nombre}'. Stock disponible: {cantidadDisponible}.",
+                        "Stock no disponible", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+                // Actualizar la cantidad
+                detalleExistente.Cantidad = nuevaCantidad;
+                NotificarCambiosCalculos();
             }
-
-            // Crear un nuevo detalle
-            var detalle = new DetalleVentaModel
+            else
             {
-                DetalleVentaId = 0, // Se asigna en la BD al guardar
-                ProductoId = ProductoSeleccionado.Id,
-                NombreProducto = ProductoSeleccionado.Nombre,
-                Cantidad = 1,
-                PrecioUnitario = ProductoSeleccionado.Precio
-            };
+                // Crear un nuevo detalle si el producto no existe aún
+                var detalle = new DetalleVentaModel
+                {
+                    DetalleVentaId = 0, // Se asigna en la BD al guardar
+                    ProductoId = ProductoSeleccionado.Id,
+                    NombreProducto = ProductoSeleccionado.Nombre,
+                    Cantidad = 1,
+                    PrecioUnitario = ProductoSeleccionado.Precio
+                };
 
-            // Verificar stock antes de agregar
-            if (!ValidarStockDisponible(detalle))
-            {
-                return; // No agregar si no hay stock suficiente
+                // Validar stock para el nuevo detalle
+                if (!ValidarStockDisponible(detalle))
+                {
+                    return; // No agregar si no hay stock suficiente
+                }
+
+                Venta.Detalles.Add(detalle);
+                NotificarCambiosCalculos();
             }
-
-            // Agregar a la venta
-            Venta.Detalles.Add(detalle);
-
-            // Notificar cambios
-            NotificarCambiosCalculos();
         }
+
 
         private void CancelarVenta(object obj)
         {

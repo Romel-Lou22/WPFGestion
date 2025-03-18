@@ -17,6 +17,8 @@ namespace SistemaGestion.VistaModelo
     }
     public class ReportesViewModel : ViewModelBase
     {
+        private readonly IClienteRepository _clienteRepository;
+        private readonly IProveedorRepository _proveedorRepository;
         // Propiedades de fechas
         private DateTime _fechaInicio = DateTime.Today.AddDays(-7); // por defecto, últimos 7 días
         public DateTime FechaInicio
@@ -72,6 +74,8 @@ namespace SistemaGestion.VistaModelo
             // Asume que ya tienes implementados los repositorios para ventas y compras.
             _ventaRepository = new VentaRepository();
             _compraRepository = new CompraRepository();
+            _clienteRepository = new ClienteRepository();
+            _proveedorRepository = new ProveedorRepository();
 
             Reportes = new ObservableCollection<ReporteModel>();
 
@@ -102,36 +106,29 @@ namespace SistemaGestion.VistaModelo
                             Fecha = venta.FechaVenta,
                             Total = venta.Total,
                             Estado = venta.Estado,
-                            Tipo = "Venta"
+                            Tipo = "Venta",
+                            Nombre = ObtenerNombre(venta.ClienteId, ReporteTipo.Ventas)
                         });
                     }
                 }
+
                 else // Compras
                 {
                     var listaCompras = _compraRepository.GetReportes(FechaInicio, FechaFin);
                     foreach (var compra in listaCompras)
                     {
-                        try
+                        Reportes.Add(new ReporteModel
                         {
-                            Debug.WriteLine($"[ViewModel] Procesando CompraId: {compra.CompraId}, TotalCompra: {compra.TotalCompra}");
-                            var reporteModel = new ReporteModel
-                            {
-                                Id = compra.CompraId,
-                                Fecha = compra.FechaCompra,
-                                Total = 0, // Valor por defecto para Compras
-                                TotalCompra = compra.TotalCompra,
-                                Estado = compra.Estado,
-                                Tipo = "Compra"
-                            };
-                            Debug.WriteLine($"[ViewModel] Creado ReporteModel - Id: {reporteModel.Id}, Tipo: {reporteModel.Tipo}");
-                            Reportes.Add(reporteModel);
-                        }
-                        catch (Exception ex)
-                        {
-                            Debug.WriteLine($"[ViewModel] Error procesando CompraId {compra.CompraId}: {ex.Message}");
-                        }
+                            Id = compra.CompraId,
+                            Fecha = compra.FechaCompra,
+                            TotalCompra = compra.TotalCompra,
+                            Estado = compra.Estado,
+                            Tipo = "Compra",
+                            Nombre = ObtenerNombre(compra.ProveedorId, ReporteTipo.Compras)
+                        });
                     }
                 }
+
                 OnPropertyChanged(nameof(Reportes));
             }
             catch (Exception ex)
@@ -150,8 +147,33 @@ namespace SistemaGestion.VistaModelo
                 return;
             }
 
-            ComprobanteReportes.GenerarComprobantePDF(Reportes);
+            ComprobanteReportes.GenerarComprobantePDF(Reportes, FechaInicio, FechaFin);
+
         }
+
+        private string ObtenerNombre(int? id, ReporteTipo tipo)
+        {
+            if (tipo == ReporteTipo.Ventas)
+            {
+                // Si es venta y el ClienteId es nulo, se interpreta como Consumidor Final
+                if (id.HasValue)
+                {
+                    var cliente = _clienteRepository.GetById(id.Value);
+                    return cliente != null ? cliente.Nombre : $"Cliente {id.Value}";
+                }
+                else
+                {
+                    return "Consumidor Final";
+                }
+            }
+            else // Compras
+            {
+                // Para compras, el ProveedorId no debe ser nulo
+                var proveedor = _proveedorRepository.GetById(id ?? 0);
+                return proveedor != null ? proveedor.Nombre : $"Proveedor {id}";
+            }
+        }
+
 
     }
 }

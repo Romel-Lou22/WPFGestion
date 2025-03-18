@@ -18,6 +18,7 @@ namespace SistemaGestion.Models
         private string _tipo;
         private decimal _total;
         private decimal _totalCompra;
+        private string _nombre;
 
         public int Id
         {
@@ -68,9 +69,9 @@ namespace SistemaGestion.Models
                     _tipo = value;
                     Debug.WriteLine($"[ReporteModel] Tipo cambiado a: {_tipo}");
                     OnPropertyChanged(nameof(Tipo));
-                    // Temporalmente se comentan estas notificaciones para descartar problemas en la vista
-                    // OnPropertyChanged(nameof(EsReporteVentas));
-                    // OnPropertyChanged(nameof(EsReporteCompras));
+                    OnPropertyChanged(nameof(EsReporteVentas));
+                    OnPropertyChanged(nameof(EsReporteCompras));
+                    OnPropertyChanged(nameof(ValorTotal));
                 }
             }
         }
@@ -85,6 +86,7 @@ namespace SistemaGestion.Models
                     _total = value;
                     Debug.WriteLine($"[ReporteModel] Total cambiado a: {_total}");
                     OnPropertyChanged(nameof(Total));
+                    OnPropertyChanged(nameof(ValorTotal));
                 }
             }
         }
@@ -99,9 +101,25 @@ namespace SistemaGestion.Models
                     _totalCompra = value;
                     Debug.WriteLine($"[ReporteModel] TotalCompra cambiado a: {_totalCompra}");
                     OnPropertyChanged(nameof(TotalCompra));
+                    OnPropertyChanged(nameof(ValorTotal));
                 }
             }
         }
+
+        public string Nombre
+        {
+            get => _nombre;
+            set
+            {
+                if (_nombre != value)
+                {
+                    _nombre = value;
+                    OnPropertyChanged(nameof(Nombre));
+                }
+            }
+        }
+
+        public decimal ValorTotal => Tipo == "Venta" ? Total : TotalCompra;
 
         public bool EsReporteVentas => Tipo == "Venta";
         public bool EsReporteCompras => Tipo == "Compra";

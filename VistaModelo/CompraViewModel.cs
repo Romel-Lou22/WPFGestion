@@ -63,11 +63,11 @@ namespace SistemaGestion.VistaModelo
 
             // Cargar proveedores
             var proveedorRepository = new ProveedorRepository();
-            ListaProveedores = new ObservableCollection<ProveedorModel>(proveedorRepository.GetAll());
+            ListaProveedores = new ObservableCollection<ProveedorModel>(proveedorRepository.GetProveedoresActivos());
 
             // Cargar productos
             var productoRepository = new ProductoRepository();
-            ListaProductos = new ObservableCollection<ProductoModel>(productoRepository.GetAll());
+            ListaProductos = new ObservableCollection<ProductoModel>(productoRepository.GetProductosActivos());
         }
 
         private void RegistrarCompra(object obj)
@@ -89,14 +89,14 @@ namespace SistemaGestion.VistaModelo
             // Validación: No se permiten valores negativos en cantidad y precio unitario.
             foreach (var detalle in Compra.Detalles)
             {
-                if (detalle.Cantidad < 0)
+                if (detalle.Cantidad <= 0)
                 {
-                    MessageBox.Show("La cantidad no puede ser negativa.", "Validación", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("Ingrese cantidad mayor a 0.", "Validación", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
-                if (detalle.PrecioUnitario < 0)
+                if (detalle.PrecioUnitario <= 0)
                 {
-                    MessageBox.Show("El precio unitario no puede ser negativo.", "Validación", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("Ingrese precio unitario mayor a 0.", "Validación", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
             }

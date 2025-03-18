@@ -44,14 +44,13 @@ namespace SistemaGestion.Services
                 // Si ya existe, incrementar la cantidad disponible.
                 stock.CantidadDisponible += detalleCompra.Cantidad;
                 // Opcional: actualizar el precio unitario según alguna política (por ejemplo, costo promedio)
+                stock.PrecioUnitario = detalleCompra.PrecioUnitario;
                 stock.FechaActualizacion = DateTime.Now;
                 _stockRepository.Edit(stock);
             }
         }
 
-        /// <summary>
-        /// Actualiza el stock al registrar una venta: disminuye la cantidad disponible.
-        /// </summary>
+     
         /// <param name="detalleVenta">Detalle de la venta</param>
         public void ActualizarStockVenta(DetalleVentaModel detalleVenta)
         {
@@ -66,6 +65,7 @@ namespace SistemaGestion.Services
                     stock.CantidadDisponible = 0;
                     // O lanzar una excepción: throw new Exception("Stock insuficiente");
                 }
+
                 stock.FechaActualizacion = DateTime.Now;
                 _stockRepository.Edit(stock);
             }

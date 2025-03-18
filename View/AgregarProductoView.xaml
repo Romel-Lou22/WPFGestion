@@ -9,44 +9,78 @@
         Background="#34495e"
         WindowStyle="SingleBorderWindow"
         ShowInTaskbar="False">
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontStyle" Value="Italic"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="#2c3e50"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontStyle" Value="Italic"/>
+            <Setter Property="Padding" Value="5,3"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Background" Value="#2c3e50"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontStyle" Value="Italic"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#3498db"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontStyle" Value="Italic"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#2980b9"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid Margin="10">
         <StackPanel>
-            <TextBlock Text="Agregar Producto" FontSize="20" FontWeight="Bold" Margin="0,0,0,10" HorizontalAlignment="Center"/>
-
+            <TextBlock Text="Agregar/Editar Producto" Foreground="White" FontStyle="Italic" FontSize="20" FontWeight="Bold" Margin="0,0,0,10" HorizontalAlignment="Center"/>
             <!-- Nombre -->
             <TextBlock Text="Nombre:"/>
             <TextBox Text="{Binding Producto.Nombre, UpdateSourceTrigger=PropertyChanged}" Width="250"/>
-
             <!-- Precio -->
-            <TextBlock Text="Precio:"/>
+            <TextBlock Text="Precio Venta:"/>
             <TextBox Text="{Binding Producto.Precio, UpdateSourceTrigger=LostFocus}" Width="250"/>
-
             <!-- Código de Barras -->
             <TextBlock Text="Código de Barras:"/>
             <TextBox Text="{Binding Producto.CodigoBarras, UpdateSourceTrigger=PropertyChanged}" Width="250"/>
-
             <!-- Stock -->
-            <TextBlock Text="Stock:"/>
-            <TextBox Text="{Binding Producto.Stock, UpdateSourceTrigger=PropertyChanged}" Width="250"/>
-
+            <TextBlock Visibility="Collapsed" Text="Stock:"/>
+            <TextBox Text="{Binding Producto.Stock, UpdateSourceTrigger=PropertyChanged}" Width="250" Visibility="Collapsed"/>
             <!-- Categoría -->
             <StackPanel Margin="10">
                 <TextBlock Text="Categoría:"/>
                 <ComboBox ItemsSource="{Binding ListaCategorias}"
                           SelectedItem="{Binding Producto.Categoria, UpdateSourceTrigger=PropertyChanged}"
-                          Width="250"/>
+                          Width="250"
+                          Foreground="Black"
+                          Background="#2c3e50"/>
             </StackPanel>
-
             <!-- Estado -->
             <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                 <TextBlock Text="Activo:" VerticalAlignment="Center"/>
-                <CheckBox IsChecked="{Binding Producto.Estado}"/>
+                <CheckBox IsChecked="{Binding Producto.Estado}" Foreground="White"/>
             </StackPanel>
-
             <!-- Botones -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
                 <Button Content="Guardar" Command="{Binding GuardarProductoCommand}" Width="100" Margin="10"/>
-                <Button Content="Cancelar" Command="{Binding CerrarVentanaCommand}" Width="100" Margin="10"   CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
+                <Button Content="Cancelar" Command="{Binding CerrarVentanaCommand}" Width="100" Margin="10" Background="#e74c3c" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
             </StackPanel>
         </StackPanel>
     </Grid>

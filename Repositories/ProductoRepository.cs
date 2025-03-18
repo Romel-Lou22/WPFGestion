@@ -117,5 +117,73 @@ namespace SistemaGestion.Repositories
             return productos;
         }
 
+        public bool ExisteProducto(string nombre)
+        {
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand("SELECT COUNT(*) FROM Productos WHERE Nombre = @Nombre", connection))
+            {
+                command.Parameters.Add("@Nombre", SqlDbType.NVarChar).Value = nombre;
+                connection.Open();
+                int count = (int)command.ExecuteScalar();
+                return count > 0;
+            }
+        }
+
+        public bool ExisteProducto(string nombre, int productoId)
+        {
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand("SELECT COUNT(*) FROM Productos WHERE Nombre = @Nombre AND ProductoId <> @ProductoId", connection))
+            {
+                command.Parameters.Add("@Nombre", SqlDbType.NVarChar).Value = nombre;
+                command.Parameters.Add("@ProductoId", SqlDbType.Int).Value = productoId;
+                connection.Open();
+                int count = (int)command.ExecuteScalar();
+                return count > 0;
+            }
+        }
+
+        public void ActualizarEstado(int productoId, bool estado)
+        {
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand("UPDATE Productos SET Estado = @Estado WHERE ProductoId = @ProductoId", connection))
+            {
+                command.Parameters.Add("@Estado", SqlDbType.Bit).Value = estado;
+                command.Parameters.Add("@ProductoId", SqlDbType.Int).Value = productoId;
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public IEnumerable<ProductoModel> GetProductosActivos()
+        {
+            var productos = new List<ProductoModel>();
+
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand("SELECT ProductoId, Nombre, Precio, CodigoBarras, Stock, Categoria, Estado FROM Productos WHERE Estado = 1", connection))
+            {
+                connection.Open();
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        productos.Add(new ProductoModel
+                        {
+                            Id = reader.GetInt32(0),
+                            Nombre = reader.GetString(1),
+                            Precio = reader.GetDecimal(2),
+                            CodigoBarras = reader.GetString(3),
+                            Stock = reader.GetInt32(4),
+                            Categoria = reader.IsDBNull(5) ? string.Empty : reader.GetString(5),
+                            Estado = reader.GetBoolean(6)
+                        });
+                    }
+                }
+            }
+            return productos;
+        }
+
+
+
+
     }
 }

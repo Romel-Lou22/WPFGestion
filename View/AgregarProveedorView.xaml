@@ -8,6 +8,21 @@
         Background="#34495e"
         Title="Agregar / Editar Proveedor"
         Height="450" Width="800">
+
+    <!-- #region Window Resources -->
+    <Window.Resources>
+        <!-- Estilos que se pueden reutilizar -->
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="3"/>
+        </Style>
+    </Window.Resources>
+    <!-- #endregion -->
+
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -15,18 +30,18 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Título -->
+        <!-- #region Título -->
         <TextBlock Text="Agregar / Editar Proveedor"
                    FontSize="24"
-                   FontWeight="Bold"
-                   Foreground="White"
                    HorizontalAlignment="Center"
                    Margin="0,0,0,20"
                    Grid.Row="0" />
+        <!-- #endregion -->
 
-        <!-- Formulario -->
+        <!-- #region Formulario -->
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -38,52 +53,36 @@
             </Grid.ColumnDefinitions>
 
             <!-- Nombre -->
-            <TextBlock Text="Nombre:" 
-                       Foreground="White" 
-                       VerticalAlignment="Center" 
-                       Grid.Row="0" Grid.Column="0" />
-            <TextBox Text="{Binding Proveedor.Nombre, UpdateSourceTrigger=PropertyChanged}" 
-                     Grid.Row="0" Grid.Column="1" Margin="5" />
+            <TextBlock Text="Nombre:" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
+            <TextBox Text="{Binding Proveedor.Nombre, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1" Margin="5"/>
 
             <!-- Email -->
-            <TextBlock Text="Email:" 
-                       Foreground="White" 
-                       VerticalAlignment="Center" 
-                       Grid.Row="1" Grid.Column="0" />
-            <TextBox Text="{Binding Proveedor.Email, UpdateSourceTrigger=PropertyChanged}" 
-                     Grid.Row="1" Grid.Column="1" Margin="5" />
+            <TextBlock Text="Email:" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
+            <TextBox Text="{Binding Proveedor.Email, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="1" Margin="5"/>
 
             <!-- Teléfono -->
-            <TextBlock Text="Teléfono:" 
-                       Foreground="White" 
-                       VerticalAlignment="Center" 
-                       Grid.Row="2" Grid.Column="0" />
-            <TextBox Text="{Binding Proveedor.Telefono, UpdateSourceTrigger=PropertyChanged}" 
-                     Grid.Row="2" Grid.Column="1" Margin="5" />
+            <TextBlock Text="Teléfono:" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"/>
+            <TextBox Text="{Binding Proveedor.Telefono, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1" Margin="5"/>
 
             <!-- Dirección -->
-            <TextBlock Text="Dirección:" 
-                       Foreground="White" 
-                       VerticalAlignment="Center" 
-                       Grid.Row="3" Grid.Column="0" />
-            <TextBox Text="{Binding Proveedor.Direccion, UpdateSourceTrigger=PropertyChanged}" 
-                     Grid.Row="3" Grid.Column="1" Margin="5" />
-        </Grid>
+            <TextBlock Text="Dirección:" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0"/>
+            <TextBox Text="{Binding Proveedor.Direccion, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" Grid.Column="1" Margin="5"/>
 
-        <!-- Botones -->
-        <StackPanel Orientation="Horizontal" 
-                    HorizontalAlignment="Right" 
-                    Grid.Row="2" 
-                    Margin="0,20,0,0">
-            <!-- Botón Guardar -->
-            <Button Content="Guardar" 
-                    Command="{Binding GuardarProveedorCommand}" 
-                    Width="100" Margin="5"/>
-            <!-- Botón Cancelar: se envía la ventana actual como parámetro -->
-            <Button Content="Cancelar" 
-                    Command="{Binding CerrarVentanaCommand}" 
+            <!-- Estado (Activo/Inactivo) -->
+            <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" Margin="5">
+                <TextBlock Text="Activo:" VerticalAlignment="Center" Width="100" Foreground="White"/>
+                <CheckBox IsChecked="{Binding Proveedor.Estado}" VerticalAlignment="Center" Foreground="White"/>
+            </StackPanel>
+        </Grid>
+        <!-- #endregion -->
+
+        <!-- #region Botones -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2" Margin="0,20,0,0">
+            <Button Content="Guardar" Command="{Binding GuardarProveedorCommand}" Width="100" Margin="5"/>
+            <Button Content="Cancelar" Command="{Binding CerrarVentanaCommand}"
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
-                    Width="100" Margin="5"/>
+                    Width="100" Margin="5" Background="#e74c3c"/>
         </StackPanel>
+        <!-- #endregion -->
     </Grid>
 </Window>

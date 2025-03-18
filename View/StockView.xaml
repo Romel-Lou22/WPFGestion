@@ -175,7 +175,7 @@
                         <DataGridTextColumn Header="ID Stock" Binding="{Binding StockId}" Width="80"/>
                         <DataGridTextColumn Header="Producto" Binding="{Binding NombreProducto}" Width="*"/>
                         <DataGridTextColumn Header="Cantidad Disponible" Binding="{Binding CantidadDisponible}" Width="130"/>
-                        <DataGridTextColumn Header="Precio Unitario" Binding="{Binding PrecioUnitario, StringFormat=C}" Width="130"/>
+                        <DataGridTextColumn Header="Precio Unit.Compra" Binding="{Binding PrecioUnitario, StringFormat=C}" Width="130"/>
                         <DataGridTextColumn Header="Valor Total" Binding="{Binding ValorTotal, StringFormat=C}" Width="130"/>
                         <DataGridTextColumn Header="Fecha Actualización" Binding="{Binding FechaActualizacion, StringFormat=d}" Width="150"/>
                     </DataGrid.Columns>

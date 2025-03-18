@@ -160,7 +160,8 @@
 
                         <!-- Botón Eliminar -->
                         <Button Style="{StaticResource ModernButtonStyle}" 
-                                Background="#2c3e50" 
+                                Background="#2c3e50"
+                                Visibility="Collapsed"
                                 Command="{Binding EliminarProveedorCommand}"
                                 CommandParameter="{Binding SelectedItem, ElementName=ProveedoresGrid}">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -179,43 +180,43 @@
 
                 <!-- #region Lista de Proveedores -->
                 <DataGrid x:Name="ProveedoresGrid" 
-                          Grid.Row="2" 
-                          ItemsSource="{Binding Proveedores}"
-                          AutoGenerateColumns="False" 
-                          IsReadOnly="True" 
-                          SelectionMode="Single"
-                          Style="{StaticResource ModernDataGridStyle}"
-                          ColumnHeaderStyle="{StaticResource ModernDataGridColumnHeaderStyle}"
-                          HeadersVisibility="Column">
+          Grid.Row="2" 
+          ItemsSource="{Binding Proveedores}"
+          AutoGenerateColumns="False" 
+          IsReadOnly="True" 
+          SelectionMode="Single"
+          Style="{StaticResource ModernDataGridStyle}"
+          ColumnHeaderStyle="{StaticResource ModernDataGridColumnHeaderStyle}"
+          HeadersVisibility="Column">
+
+                    <!-- Estilo de fila para marcar proveedores inactivos -->
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Estado}" Value="False">
+                                    <Setter Property="Foreground" Value="Gray"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.RowStyle>
+
                     <DataGrid.Columns>
-                        <!-- Columna Id (asumiendo que la propiedad es ProveedorId) -->
-                        <DataGridTextColumn Header="Id" 
-                                            Binding="{Binding ProveedorId}" 
-                                            Width="Auto" 
-                                            MinWidth="80"/>
+                        <!-- Columna Id -->
+                        <DataGridTextColumn Header="Id" Binding="{Binding ProveedorId}" Width="Auto" MinWidth="80"/>
                         <!-- Columna Nombre -->
-                        <DataGridTextColumn Header="Nombre" 
-                                            Binding="{Binding Nombre}" 
-                                            Width="Auto" 
-                                            MinWidth="150"/>
+                        <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Width="Auto" MinWidth="150"/>
                         <!-- Columna Teléfono -->
-                        <DataGridTextColumn Header="Teléfono" 
-                                            Binding="{Binding Telefono}" 
-                                            Width="Auto" 
-                                            MinWidth="120"/>
+                        <DataGridTextColumn Header="Teléfono" Binding="{Binding Telefono}" Width="Auto" MinWidth="120"/>
                         <!-- Columna Email -->
-                        <DataGridTextColumn Header="Email" 
-                                            Binding="{Binding Email}" 
-                                            Width="Auto" 
-                                            MinWidth="150"/>
+                        <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="Auto" MinWidth="150"/>
                         <!-- Columna Dirección -->
-                        <DataGridTextColumn Header="Dirección" 
-                                            Binding="{Binding Direccion}" 
-                                            Width="Auto" 
-                                            MinWidth="200"/>
+                        <DataGridTextColumn Header="Dirección" Binding="{Binding Direccion}" Width="Auto" MinWidth="200"/>
+                        <!-- Columna Estado -->
+                        <DataGridCheckBoxColumn Header="Activo" Binding="{Binding Estado}" Width="Auto" MinWidth="80"/>
                     </DataGrid.Columns>
                 </DataGrid>
                 <!-- #endregion -->
+
 
                 <!-- #region Contador de Proveedores -->
                 <TextBlock Grid.Row="3" 

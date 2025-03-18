@@ -31,38 +31,38 @@ namespace SistemaGestion.VistaModelo
             Proveedor = proveedorExistente;
         }
 
+        
+
         private void GuardarProveedor(object obj)
         {
-            // 1. Validaciones previas
             if (!ValidarCampos())
                 return;
 
-            try
-            {
-                if (Proveedor.ProveedorId == 0)
-                {
-                    // Agregar proveedor nuevo
-                    _proveedorRepository.add(Proveedor);
-                    MessageBox.Show("Proveedor agregado con éxito.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
+            string nombre = Proveedor.Nombre?.Trim();
 
-                    // Limpiar los campos para agregar uno nuevo
-                    Proveedor = new ProveedorModel();
-                    OnPropertyChanged(nameof(Proveedor));
-                }
-                else
-                {
-                    // Actualizar proveedor existente y cerrar la ventana
-                    _proveedorRepository.edit(Proveedor);
-                    MessageBox.Show("Proveedor actualizado con éxito.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
-                    CerrarVentana(obj);
-                }
-            }
-            catch (Exception ex)
+            if (Proveedor.ProveedorId == 0)
             {
-                MessageBox.Show($"Error al guardar el proveedor: {ex.Message}",
-                                "Error",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Error);
+                // Validación para nuevo proveedor
+                if (_proveedorRepository.ExisteProveedorNombre(nombre))
+                {
+                    MessageBox.Show("Ya existe un proveedor con ese nombre.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+                _proveedorRepository.Add(Proveedor);
+                MessageBox.Show("Proveedor agregado con éxito.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
+                // Reiniciar campos si es necesario.
+            }
+            else
+            {
+                // Validación para edición, excluyendo el proveedor actual
+                if (_proveedorRepository.ExisteProveedorNombre(nombre, Proveedor.ProveedorId))
+                {
+                    MessageBox.Show("Ya existe otro proveedor con ese nombre.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+                _proveedorRepository.Edit(Proveedor);
+                MessageBox.Show("Proveedor editado con éxito.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
+                // Cerrar ventana o actualizar la UI según corresponda.
             }
         }
 

@@ -9,15 +9,58 @@
         WindowStyle="SingleBorderWindow"
         ShowInTaskbar="False">
 
+    <!-- #region Window Resources -->
+    <Window.Resources>
+        <!-- Estilos para TextBlock -->
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontStyle" Value="Italic"/>
+        </Style>
+        <!-- Estilos para TextBox -->
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="#2c3e50"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontStyle" Value="Italic"/>
+            <Setter Property="Padding" Value="5,3"/>
+        </Style>
+        <!-- Estilos para Button -->
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#3498db"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontStyle" Value="Italic"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#2980b9"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <!-- #endregion -->
+
+    <!-- #region Main Layout -->
     <Grid Margin="10">
         <StackPanel>
-            <!-- Título -->
-            <TextBlock Text="Agregar Cliente" 
+            <!-- #region Título -->
+            <TextBlock Text="Agregar/Editar Cliente" 
                        FontSize="20" 
                        FontWeight="Bold" 
                        Margin="0,0,0,10" 
-                       HorizontalAlignment="Center"/>
+                       HorizontalAlignment="Center"
+                       FontStyle="Italic"/>
+            <!-- #endregion -->
 
+            <!-- #region Formulario de Cliente -->
             <!-- Cédula -->
             <TextBlock Text="Cédula:"/>
             <TextBox Text="{Binding Cliente.Cedula, UpdateSourceTrigger=PropertyChanged}" 
@@ -25,9 +68,10 @@
                      Margin="0,0,0,10"/>
 
             <!-- Nombre -->
-            <TextBlock Text="Nombre:"/>
+            <TextBlock Text="Nombre y Apellido:"/>
             <TextBox Text="{Binding Cliente.Nombre, UpdateSourceTrigger=PropertyChanged}" 
                      Width="350"
+                     MaxLength="10"
                      Margin="0,0,0,10"/>
 
             <!-- Teléfono -->
@@ -52,7 +96,16 @@
                      VerticalScrollBarVisibility="Auto"
                      Margin="0,0,0,10"/>
 
-            <!-- Botones -->
+            <!-- Estado Activo -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Activo:" VerticalAlignment="Center" Width="100"/>
+                <CheckBox IsChecked="{Binding Cliente.Activo}" 
+                          VerticalAlignment="Center" 
+                          Foreground="White"/>
+            </StackPanel>
+            <!-- #endregion -->
+
+            <!-- #region Botones -->
             <StackPanel Orientation="Horizontal" 
                         HorizontalAlignment="Center" 
                         Margin="0,20,0,0">
@@ -63,8 +116,11 @@
                 <Button Content="Cancelar" 
                         Click="CerrarVentana" 
                         Width="100" 
-                        Margin="10"/>
+                        Margin="10"
+                        Background="#e74c3c"/>
             </StackPanel>
+            <!-- #endregion -->
         </StackPanel>
     </Grid>
+    <!-- #endregion -->
 </Window>

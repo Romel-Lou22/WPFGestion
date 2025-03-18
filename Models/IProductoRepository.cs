@@ -13,5 +13,10 @@ namespace SistemaGestion.Models
         void Remove(string nombre);
         ProductoModel GetById(int id);
         IEnumerable<ProductoModel> GetAll();
+
+        bool ExisteProducto(string nombre);
+        bool ExisteProducto(string nombre, int productoId);
+        void ActualizarEstado(int productoId, bool estado);
+        IEnumerable<ProductoModel> GetProductosActivos();
     }
 }

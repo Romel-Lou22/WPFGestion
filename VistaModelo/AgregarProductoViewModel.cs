@@ -10,20 +10,20 @@ namespace SistemaGestion.VistaModelo
     {
         private readonly IProductoRepository _productoRepository;
         public ProductoModel Producto { get; set; }
-
-        // Propiedad para la lista de categorías
         public ObservableCollection<string> ListaCategorias { get; set; }
-
         public ICommand GuardarProductoCommand { get; }
         public ICommand CerrarVentanaCommand { get; }
 
         // Constructor para agregar un producto nuevo
         public AgregarProductoViewModel()
         {
-            _productoRepository = new ProductoRepository(); // Instancia el repositorio de productos
-            Producto = new ProductoModel(); // Nuevo producto vacío
+            _productoRepository = new ProductoRepository();
+            Producto = new ProductoModel
+            {
+                // Asignamos el stock por defecto a 1 ya que el campo estará oculto
+                Stock = 1
+            };
 
-            // Inicializar la lista de categorías
             ListaCategorias = new ObservableCollection<string>
             {
                 "Alimentos",
@@ -51,53 +51,83 @@ namespace SistemaGestion.VistaModelo
         public AgregarProductoViewModel(ProductoModel productoExistente) : this()
         {
             Producto = productoExistente;
+            System.Diagnostics.Debug.WriteLine($"[DEBUG] Id del producto en edición: {Producto.Id}");
         }
 
-        private void GuardarProducto(object obj)
+        // Valida solo los campos obligatorios (Nombre y Precio)
+        private bool ValidarCampos()
         {
-            // Validación: El nombre es obligatorio.
-            if (string.IsNullOrEmpty(Producto.Nombre))
+            if (string.IsNullOrWhiteSpace(Producto.Nombre))
             {
                 MessageBox.Show("El nombre es obligatorio.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
+                return false;
             }
-
-            // Validación: El precio debe ser mayor a cero (evitando negativos y cero).
             if (Producto.Precio <= 0)
             {
                 MessageBox.Show("El precio debe ser mayor a cero y no puede ser negativo.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
+                return false;
             }
-
-            // Validación: El stock no puede ser negativo (puede ser cero).
-            if (Producto.Stock < 0)
+            if (string.IsNullOrWhiteSpace(Producto.CodigoBarras))
             {
-                MessageBox.Show("El stock no puede ser negativo.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("El código de barras es obligatorio.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+            if (string.IsNullOrWhiteSpace(Producto.Categoria))
+            {
+                MessageBox.Show("La categoría es obligatoria.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+            return true;
+        }
+
+
+
+        private void GuardarProducto(object obj)
+        {
+            if (!ValidarCampos())
                 return;
+
+            // Si por alguna razón el stock no es mayor a cero, asignar valor por defecto 1.
+            if (Producto.Stock <= 0)
+            {
+                Producto.Stock = 1;
             }
 
             if (Producto.Id == 0)
             {
+                // Validar duplicado al agregar un nuevo producto
+                if (_productoRepository.ExisteProducto(Producto.Nombre))
+                {
+                    MessageBox.Show("Ya existe un producto con ese nombre.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
                 _productoRepository.Add(Producto);
                 MessageBox.Show("Producto agregado con éxito.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                // Limpiar los campos reiniciando la propiedad Producto
-                Producto = new ProductoModel();
+                // Reinicia el modelo para agregar un nuevo producto, manteniendo el stock por defecto.
+                Producto = new ProductoModel { Stock = 1 };
                 OnPropertyChanged(nameof(Producto));
             }
             else
             {
+                // Al editar, se valida excluyendo el producto actual
+                if (_productoRepository.ExisteProducto(Producto.Nombre, Producto.Id))
+                {
+                    MessageBox.Show("Ya existe otro producto con ese nombre.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
                 _productoRepository.Edit(Producto);
                 MessageBox.Show("Producto editado con éxito.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
                 CerrarVentana(obj);
             }
         }
 
-
         private void CerrarVentana(object obj)
         {
-            Window ventana = obj as Window;
-            ventana?.Close();
+            if (obj is Window ventana)
+                ventana.Close();
         }
     }
 }

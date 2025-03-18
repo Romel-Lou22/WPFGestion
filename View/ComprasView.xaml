@@ -145,12 +145,15 @@
 
                         <TextBlock Text="Producto:" 
                                    Style="{StaticResource ModernTextBlockStyle}"/>
-                        <ComboBox Grid.Column="1"
+                        <ComboBox x:Name="cmbProductos" Grid.Column="1"
                                   Style="{StaticResource ModernComboBoxStyle}"
                                   ItemsSource="{Binding ListaProductos}"
                                   DisplayMemberPath="Nombre"
                                   SelectedItem="{Binding SelectedProducto, Mode=TwoWay}"
-                                  Width="200"/>
+                                  Width="200"
+                                  IsEditable="True"
+                                  Loaded="cmbProductos_Loaded"
+                                  />
 
                         <!-- Botón Agregar Producto -->
                         <Button Grid.Column="2"
