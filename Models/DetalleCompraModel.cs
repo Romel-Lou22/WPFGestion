@@ -37,7 +37,7 @@ namespace SistemaGestion.Models
             {
                 _cantidad = value;
                 OnPropertyChanged(nameof(Cantidad));
-                OnPropertyChanged(nameof(TotalDetalle));
+                OnPropertyChanged(nameof(ImporteTotal));
             }
         }
 
@@ -48,12 +48,12 @@ namespace SistemaGestion.Models
             {
                 _precioUnitario = value;
                 OnPropertyChanged(nameof(PrecioUnitario));
-                OnPropertyChanged(nameof(TotalDetalle));
+                OnPropertyChanged(nameof(ImporteTotal));
             }
         }
 
         // La columna calculada TotalDetalle (no se almacena, se calcula en tiempo real)
-        public decimal TotalDetalle => Cantidad * PrecioUnitario;
+        public decimal ImporteTotal => Cantidad * PrecioUnitario;
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName) =>

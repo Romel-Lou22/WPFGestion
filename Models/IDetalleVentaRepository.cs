@@ -13,5 +13,7 @@ namespace SistemaGestion.Models
         void Remove(int detalleVentaId);
         DetalleVentaModel GetById(int id);
         IEnumerable<DetalleVentaModel> GetAll();
+
+        IEnumerable<DetalleVentaModel> GetDetalleVenta(int ventaId);
     }
 }

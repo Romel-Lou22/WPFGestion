@@ -44,7 +44,7 @@ namespace SistemaGestion.Models
 
         public decimal TotalCompra
         {
-            get => (Detalles != null && Detalles.Any()) ? Detalles.Sum(d => d.TotalDetalle) : _totalCompra;
+            get => (Detalles != null && Detalles.Any()) ? Detalles.Sum(d => d.ImporteTotal) : _totalCompra;
             set
             {
                 _totalCompra = value;

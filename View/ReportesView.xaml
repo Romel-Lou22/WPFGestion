@@ -198,30 +198,58 @@
                 <!-- #endregion -->
 
                 <!-- #region Data Grid Section -->
-                <DataGrid x:Name="dgReportes"
-          Grid.Row="3"
-          Margin="10"
-          AutoGenerateColumns="False"
-          IsReadOnly="True"
-          ItemsSource="{Binding Reportes}"
-          Style="{StaticResource ModernDataGridStyle}"
-          ColumnHeaderStyle="{StaticResource ModernDataGridColumnHeaderStyle}"
-          ColumnWidth="Auto"
-          HorizontalScrollBarVisibility="Auto"
-          HorizontalAlignment="Left"
-          MaxWidth="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=ActualWidth, Converter={StaticResource WidthReducer}, ConverterParameter=20}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto" MinWidth="40" MaxWidth="70"/>
-                        <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Width="Auto" MinWidth="150" MaxWidth="200"/>
-                        <DataGridTextColumn Header="Fecha" Binding="{Binding Fecha, StringFormat={}{0:dd/MM/yyyy}}" Width="Auto" MinWidth="90" MaxWidth="130"/>
-                        <DataGridTextColumn Header="Total" Binding="{Binding ValorTotal, StringFormat=C}" Width="Auto" MinWidth="70" MaxWidth="100" 
-                            Visibility="{Binding EsReporteVentas, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <Grid Grid.Row="3" Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
-                        <DataGridTextColumn Header="Estado" Visibility="Collapsed" Binding="{Binding Estado}" Width="Auto" MinWidth="60" MaxWidth="100"/>
-                        <DataGridTextColumn Header="Tipo" Binding="{Binding Tipo}" Width="Auto" MinWidth="60" MaxWidth="80"/>
-                    </DataGrid.Columns>
-                </DataGrid>
+                    <!-- DataGrid Maestro -->
+                    <DataGrid x:Name="dgReportes"
+            Grid.Column="0"
+            AutoGenerateColumns="False"
+            IsReadOnly="True"
+            ItemsSource="{Binding Reportes}"
+            Style="{StaticResource ModernDataGridStyle}"
+            SelectedItem="{Binding ReporteItemSeleccionado, Mode=TwoWay}"
+            ColumnHeaderStyle="{StaticResource ModernDataGridColumnHeaderStyle}"
+            ColumnWidth="Auto"
+            HorizontalScrollBarVisibility="Auto">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto" MinWidth="40" MaxWidth="70"/>
+                            <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Width="Auto" MinWidth="150" MaxWidth="200"/>
+                            <DataGridTextColumn Header="Fecha" Binding="{Binding Fecha, StringFormat={}{0:dd/MM/yyyy}}" Width="Auto" MinWidth="90" MaxWidth="130"/>
+                            <DataGridTextColumn Header="Total" Binding="{Binding ValorTotal, StringFormat=C}" Width="Auto" MinWidth="70" MaxWidth="100"
+                           Visibility="{Binding EsReporteVentas, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                            <DataGridTextColumn Header="Tipo" Binding="{Binding Tipo}" Width="Auto" MinWidth="60" MaxWidth="80"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <!-- Separador vertical sin propiedad Orientation -->
+                    <Separator Grid.Column="1" Margin="5"/>
+
+                    <!-- DataGrid Detalle -->
+                    <DataGrid Grid.Column="2"
+            AutoGenerateColumns="False"
+            IsReadOnly="True"
+            ItemsSource="{Binding Detalles}"
+            Style="{StaticResource ModernDataGridStyle}"
+            ColumnHeaderStyle="{StaticResource ModernDataGridColumnHeaderStyle}"
+            Margin="0,0,0,0">
+                        <DataGrid.Columns>
+                            <!-- Ajusta estas columnas de acuerdo a las propiedades de tus modelos de detalle -->
+                            <DataGridTextColumn Header="Producto" Binding="{Binding NombreProducto}" Width="200"/>
+                            <DataGridTextColumn Header="Cantidad" Binding="{Binding Cantidad}" Width="Auto"/>
+                            <DataGridTextColumn Header="Precio Unitario" Binding="{Binding PrecioUnitario, StringFormat=C}" Width="Auto"/>
+                            <DataGridTextColumn Header="Importe" Binding="{Binding ImporteTotal, StringFormat=C}" Width="Auto"/>
+                           
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
                 <!-- #endregion -->
+
 
                 <!-- #region Footer Section -->
                 <Grid Grid.Row="4" Margin="0,5" HorizontalAlignment="Left">
@@ -253,6 +281,19 @@
                                        VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
+                    <!-- Botón para imprimir detalle de la transacción seleccionada -->
+                    <Button x:Name="btnImprimirDetalle"
+        HorizontalAlignment="Right"
+        Margin="0,5,5,5"
+        Width="180"
+        Style="{StaticResource ModernButtonStyle}"
+        Command="{Binding ImprimirDetalleCommand}">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <fa:IconImage Icon="Print" Height="16" Width="16" Margin="0,0,5,0" Foreground="White"/>
+                            <TextBlock Text="Imprimir Detalle" Foreground="White" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
                 </Grid>
                 <!-- #endregion -->
             </Grid>

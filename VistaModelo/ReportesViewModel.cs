@@ -19,6 +19,13 @@ namespace SistemaGestion.VistaModelo
     {
         private readonly IClienteRepository _clienteRepository;
         private readonly IProveedorRepository _proveedorRepository;
+        // Repositorios de Ventas y Compras
+        private readonly IVentaRepository _ventaRepository;
+        private readonly ICompraRepository _compraRepository;
+        // Repositorios para los detalles
+        private readonly IDetalleVentaRepository _detalleVentaRepository;
+        private readonly IDetalleCompraRepository _detalleCompraRepository;
+
         // Propiedades de fechas
         private DateTime _fechaInicio = DateTime.Today.AddDays(-7); // por defecto, últimos 7 días
         public DateTime FechaInicio
@@ -53,7 +60,7 @@ namespace SistemaGestion.VistaModelo
         public bool EsReporteVentas => ReporteSeleccionado == ReporteTipo.Ventas;
         public bool EsReporteCompras => ReporteSeleccionado == ReporteTipo.Compras;
 
-        // Colección de resultados del reporte
+        // Colección de resultados del reporte (maestro)
         private ObservableCollection<ReporteModel> _reportes;
         public ObservableCollection<ReporteModel> Reportes
         {
@@ -61,26 +68,50 @@ namespace SistemaGestion.VistaModelo
             set { _reportes = value; OnPropertyChanged(nameof(Reportes)); }
         }
 
+        // Propiedad para el elemento seleccionado en el DataGrid maestro
+        private ReporteModel _reporteItemSeleccionado;
+        public ReporteModel ReporteItemSeleccionado
+        {
+            get => _reporteItemSeleccionado;
+            set
+            {
+                _reporteItemSeleccionado = value;
+                OnPropertyChanged(nameof(ReporteItemSeleccionado));
+                // Al cambiar el seleccionado, se cargan los detalles
+                CargarDetalle(_reporteItemSeleccionado);
+            }
+        }
+
+        // Colección para los detalles (detalle)
+        private ObservableCollection<object> _detalles;
+        public ObservableCollection<object> Detalles
+        {
+            get => _detalles;
+            set { _detalles = value; OnPropertyChanged(nameof(Detalles)); }
+        }
+
         // Comandos
         public ICommand ConsultarCommand { get; }
         public ICommand ExportarPDFCommand { get; }
-
-        // Referencias a repositorios
-        private readonly IVentaRepository _ventaRepository;
-        private readonly ICompraRepository _compraRepository;
+        public ICommand ImprimirDetalleCommand { get; }
 
         public ReportesViewModel()
         {
-            // Asume que ya tienes implementados los repositorios para ventas y compras.
+            // Inicializar repositorios
             _ventaRepository = new VentaRepository();
             _compraRepository = new CompraRepository();
             _clienteRepository = new ClienteRepository();
             _proveedorRepository = new ProveedorRepository();
+            _detalleVentaRepository = new DetalleVentaRepository();
+            _detalleCompraRepository = new DetalleCompraRepository();
 
             Reportes = new ObservableCollection<ReporteModel>();
+            Detalles = new ObservableCollection<object>();
 
             ConsultarCommand = new ViewModelCommand(ConsultarReportes);
             ExportarPDFCommand = new ViewModelCommand(ExportarPDF);
+
+            ImprimirDetalleCommand = new ViewModelCommand(ImprimirDetalle);
         }
 
         private void ConsultarReportes(object obj)
@@ -111,7 +142,6 @@ namespace SistemaGestion.VistaModelo
                         });
                     }
                 }
-
                 else // Compras
                 {
                     var listaCompras = _compraRepository.GetReportes(FechaInicio, FechaFin);
@@ -137,8 +167,6 @@ namespace SistemaGestion.VistaModelo
             }
         }
 
-
-
         private void ExportarPDF(object obj)
         {
             if (Reportes == null || Reportes.Count == 0)
@@ -148,7 +176,6 @@ namespace SistemaGestion.VistaModelo
             }
 
             ComprobanteReportes.GenerarComprobantePDF(Reportes, FechaInicio, FechaFin);
-
         }
 
         private string ObtenerNombre(int? id, ReporteTipo tipo)
@@ -174,6 +201,51 @@ namespace SistemaGestion.VistaModelo
             }
         }
 
+        // Método para cargar el detalle del reporte seleccionado
+        private void CargarDetalle(ReporteModel reporte)
+        {
+            Detalles.Clear();
+
+            if (reporte == null)
+                return;
+
+            if (reporte.Tipo.Equals("Venta", StringComparison.OrdinalIgnoreCase))
+            {
+                // Obtener detalles de venta para el ID de venta
+                var detallesVenta = _detalleVentaRepository.GetDetalleVenta(reporte.Id);
+                foreach (var det in detallesVenta)
+                {
+                    Detalles.Add(det);
+                }
+            }
+            else if (reporte.Tipo.Equals("Compra", StringComparison.OrdinalIgnoreCase))
+            {
+                // Obtener detalles de compra para el ID de compra
+                var detallesCompra = _detalleCompraRepository.GetDetalleCompra(reporte.Id);
+                foreach (var det in detallesCompra)
+                {
+                    Detalles.Add(det);
+                }
+            }
+        }
+
+        // Agrega en la sección de comandos:
+     
+
+        // En el constructor, inicializa el comando:
+      
+
+        // Método que invoca la generación del PDF individual
+        private void ImprimirDetalle(object obj)
+        {
+            if (ReporteItemSeleccionado == null)
+            {
+                MessageBox.Show("Seleccione una transacción.", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            // Aquí se asume que la colección Detalles contiene los detalles correspondientes al reporte seleccionado
+            DetalleComprobantePDF.GenerarPDFDetalle(ReporteItemSeleccionado, Detalles);
+        }
 
     }
 }

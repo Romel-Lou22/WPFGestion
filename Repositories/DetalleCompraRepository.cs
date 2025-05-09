@@ -114,6 +114,34 @@ namespace SistemaGestion.Repositories
             return null;
         }
 
+        public IEnumerable<DetalleCompraModel> GetDetalleCompra(int compraId)
+        {
+            var detalles = new List<DetalleCompraModel>();
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand(
+                "SELECT DetalleCompraId, CompraId, ProductoId, Cantidad, PrecioUnitario FROM DetalleCompras WHERE CompraId = @CompraId", connection))
+            {
+                command.Parameters.Add("@CompraId", SqlDbType.Int).Value = compraId;
+                connection.Open();
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        detalles.Add(new DetalleCompraModel
+                        {
+                            DetalleCompraId = reader.GetInt32(0),
+                            CompraId = reader.GetInt32(1),
+                            ProductoId = reader.GetInt32(2),
+                            Cantidad = reader.GetInt32(3),
+                            PrecioUnitario = reader.GetDecimal(4)
+                        });
+                    }
+                }
+            }
+            return detalles;
+        }
+
+
 
     }
 }

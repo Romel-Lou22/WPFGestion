@@ -201,7 +201,7 @@
                         <DataGridTextColumn Header="Producto" IsReadOnly="True" Binding="{Binding NombreProducto}" Width="*"/>
                         <DataGridTextColumn Header="Cantidad" Binding="{Binding Cantidad}" Width="*"/>
                         <DataGridTextColumn Header="Precio Unitario" Binding="{Binding PrecioUnitario, StringFormat=C}" Width="*"/>
-                        <DataGridTextColumn Header="Total" IsReadOnly="True" Binding="{Binding TotalDetalle, StringFormat=C}" Width="*"/>
+                        <DataGridTextColumn Header="Total" IsReadOnly="True" Binding="{Binding ImporteTotal, StringFormat=C}" Width="*"/>
                     </DataGrid.Columns>
                 </DataGrid>
                 <!-- #endregion -->

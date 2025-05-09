@@ -108,5 +108,38 @@ namespace SistemaGestion.Repositories
             }
             return detalles;
         }
+
+        public IEnumerable<DetalleVentaModel> GetDetalleVenta(int ventaId)
+        {
+            var detalles = new List<DetalleVentaModel>();
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand(
+                "SELECT dv.DetalleVentaId, dv.VentaId, dv.ProductoId, p.Nombre AS Producto, dv.Cantidad, dv.PrecioUnitario " +
+                "FROM DetalleVentas dv " +
+                "JOIN Productos p ON dv.ProductoId = p.ProductoId " +
+                "WHERE dv.VentaId = @VentaId", connection))
+            {
+                command.Parameters.Add("@VentaId", SqlDbType.Int).Value = ventaId;
+                connection.Open();
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        detalles.Add(new DetalleVentaModel
+                        {
+                            DetalleVentaId = reader.GetInt32(0),
+                            VentaId = reader.GetInt32(1),
+                            ProductoId = reader.GetInt32(2),
+                            NombreProducto = reader.GetString(3), // Se obtiene el nombre
+                            Cantidad = reader.GetInt32(4),
+                            PrecioUnitario = reader.GetDecimal(5)
+                        });
+                    }
+                }
+            }
+            return detalles;
+        }
+
+
     }
 }
